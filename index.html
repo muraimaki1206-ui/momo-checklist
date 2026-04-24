@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>MOMOジム チェックシート</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #F76C8A;
+    --pink-light: #FFD6DF;
+    --pink-pale: #FFF0F3;
+    --orange: #FF8C42;
+    --orange-light: #FFE0CC;
+    --orange-pale: #FFF6EE;
+    --check-open: #E8355A;
+    --check-lesson: #888888;
+    --check-close: #D46A00;
+    --section-open: #FF4D72;
+    --section-lesson: #888888;
+    --section-close: #FF8C42;
+    --bg: #FFF8FA;
+    --text: #2D1A1F;
+    --text-light: #9A7A82;
+    --cell-size: 36px;
+    --row-height: 34px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, var(--pink) 0%, var(--orange) 100%);
+    padding: 14px 16px 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(247,108,138,0.3);
+  }
+  .header h1 {
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .header-sub {
+    color: rgba(255,255,255,0.85);
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  .header-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .btn-reset {
+    background: rgba(255,255,255,0.25);
+    border: 1px solid rgba(255,255,255,0.5);
+    color: white;
+    font-family: inherit;
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-reset:active { background: rgba(255,255,255,0.4); }
+
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+  .progress-bar-outer {
+    width: 120px;
+    height: 6px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-bar-inner {
+    height: 100%;
+    background: white;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+  }
+  .progress-text {
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* MONTH SELECTOR */
+  .month-bar {
+    background: white;
+    border-bottom: 2px solid var(--pink-light);
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: sticky;
+    top: 72px;
+    z-index: 99;
+  }
+  .month-label {
+    font-size: 11px;
+    color: var(--text-light);
+    white-space: nowrap;
+  }
+  .month-input {
+    font-family: inherit;
+    font-size: 13px;
+    border: 1.5px solid var(--pink-light);
+    border-radius: 8px;
+    padding: 3px 8px;
+    color: var(--text);
+    background: var(--pink-pale);
+  }
+  .month-input:focus { outline: none; border-color: var(--pink); }
+
+  /* SCROLL WRAPPER */
+  .scroll-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 20px;
+  }
+
+  /* TABLE */
+  table {
+    border-collapse: collapse;
+    min-width: max-content;
+  }
+
+  /* Day header row */
+  .day-header-row th {
+    position: sticky;
+    top: 118px;
+    z-index: 50;
+    background: white;
+    padding: 0;
+  }
+  .day-header-row th.sticky-col {
+    left: 0;
+    z-index: 60;
+    background: white;
+  }
+
+  .day-header-cell {
+    width: var(--cell-size);
+    min-width: var(--cell-size);
+    height: 38px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-light);
+    border-bottom: 2px solid var(--pink-light);
+    border-right: 1px solid #F0E0E4;
+    gap: 1px;
+  }
+  .day-header-cell .day-num {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 700;
+  }
+  .day-header-cell .day-of-week {
+    font-size: 9px;
+    color: var(--text-light);
+  }
+  .day-header-cell.today-col .day-num { color: var(--pink); }
+  .day-header-cell.today-col { background: var(--pink-pale) !important; }
+  .day-header-cell .day-of-week.sun { color: #E84444; }
+  .day-header-cell .day-of-week.sat { color: #4466DD; }
+
+  /* Item label column */
+  .sticky-col {
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    background: white;
+  }
+
+  .item-label {
+    min-width: 180px;
+    max-width: 180px;
+    padding: 4px 8px 4px 10px;
+    font-size: 11px;
+    line-height: 1.4;
+    border-right: 2px solid var(--pink-light);
+    border-bottom: 1px solid #F0E0E4;
+    height: var(--row-height);
+    display: flex;
+    align-items: center;
+  }
+
+  /* Section header rows */
+  .section-row td {
+    height: 26px;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 0 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    white-space: nowrap;
+  }
+  .section-row.open td { background: linear-gradient(90deg, #FF4D72, #FF7096); color: white; }
+  .section-row.lesson td { background: linear-gradient(90deg, #999, #BBB); color: white; }
+  .section-row.close td { background: linear-gradient(90deg, #FF8C42, #FFAA6A); color: white; }
+
+  .section-row td.sticky-col {
+    z-index: 11;
+  }
+  .section-row.open td.sticky-col { background: #FF4D72; }
+  .section-row.lesson td.sticky-col { background: #999; }
+  .section-row.close td.sticky-col { background: #FF8C42; }
+
+  /* Data rows */
+  tr.item-row:nth-child(even) .item-label,
+  tr.item-row:nth-child(even) .check-cell { background: #FFF8FA; }
+  tr.item-row:nth-child(odd) .item-label,
+  tr.item-row:nth-child(odd) .check-cell { background: white; }
+
+  /* Check cell */
+  .check-cell {
+    width: var(--cell-size);
+    min-width: var(--cell-size);
+    height: var(--row-height);
+    border-right: 1px solid #F0E0E4;
+    border-bottom: 1px solid #F0E0E4;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+    position: relative;
+  }
+  .check-cell:active { transform: scale(0.88); }
+
+  .check-cell.checked.open-item { background: #FFE0E6; }
+  .check-cell.checked.lesson-item { background: #EFEFEF; }
+  .check-cell.checked.close-item { background: #FFE8D4; }
+
+  .check-icon {
+    font-size: 16px;
+    font-weight: 700;
+    opacity: 0;
+    transition: opacity 0.15s, transform 0.15s;
+    transform: scale(0.5);
+    pointer-events: none;
+  }
+  .open-item .check-icon { color: var(--check-open); }
+  .lesson-item .check-icon { color: var(--check-lesson); }
+  .close-item .check-icon { color: var(--check-close); }
+
+  .check-cell.checked .check-icon {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .check-cell.today-col {
+    border-right: 1px solid var(--pink-light);
+    border-left: 1px solid var(--pink-light);
+  }
+
+  /* Note row */
+  .note-row td {
+    font-size: 9.5px;
+    color: var(--text-light);
+    padding: 6px 10px;
+    border-top: 1px solid var(--pink-light);
+    background: var(--pink-pale);
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(60px);
+    background: rgba(45,26,31,0.9);
+    color: white;
+    font-family: inherit;
+    font-size: 12px;
+    padding: 8px 18px;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+    z-index: 999;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* Scrollbar */
+  .scroll-wrap::-webkit-scrollbar { height: 4px; }
+  .scroll-wrap::-webkit-scrollbar-track { background: #F0E0E4; }
+  .scroll-wrap::-webkit-scrollbar-thumb { background: var(--pink-light); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🏋️ MOMOジム　オープン・クローズ チェックシート</h1>
+  <div class="header-sub">作業項目をタップしてチェック ✓</div>
+  <div class="header-actions">
+    <button class="btn-reset" onclick="confirmReset()">🔄 リセット</button>
+    <div class="progress-wrap">
+      <div class="progress-bar-outer">
+        <div class="progress-bar-inner" id="progressBar" style="width:0%"></div>
+      </div>
+      <div class="progress-text" id="progressText">0%</div>
+    </div>
+  </div>
+</div>
+
+<div class="month-bar">
+  <span class="month-label">📅 開始月：</span>
+  <input type="month" class="month-input" id="monthPicker">
+</div>
+
+<div class="scroll-wrap">
+  <table id="checkTable">
+    <thead>
+      <tr class="day-header-row" id="dayHeaderRow">
+        <th class="sticky-col">
+          <div class="item-label" style="font-size:11px; color: var(--text-light); font-weight:700; border-bottom: 2px solid var(--pink-light);">作業内容</div>
+        </th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = 'momo_checklist_v2';
+const MONTH_KEY = 'momo_checklist_month';
+
+const SECTIONS = [
+  {
+    id: 'open',
+    label: '▼ オープン作業　9:00〜9:15',
+    type: 'open',
+    items: [
+      '① シャッターをあける',
+      '② ヨガマット・トレー・ツールをセット',
+      '③ トイレ：便座ON・ゴミ箱を空に・ペーパー三角折り・スリッパをそろえる',
+      '④ トイレ：便器ブラシ掃除・便座ふた・床シートで拭く',
+      '⑤ 外の掃き掃除・お花の水やり',
+      '⑥ 消毒台・手すり・看板・チラシ入れ・靴おきを拭く',
+      '都度：チラシ補充（なければ補充する）',
+      '都度：加湿器の水補給 / 除湿機の水を捨てる',
+      '【電気】エアコン・換気扇・空清1台・ステレオ ON',
+    ]
+  },
+  {
+    id: 'lesson',
+    label: '▼ レッスン終了後（各レッスン後に実施）',
+    type: 'lesson',
+    items: [
+      '① 使用ツール・マット：消毒液で拭いて片付ける',
+      '② 窓をしめる',
+      '③ 電気・換気扇・エアコン・空清をオフにする',
+      '④ 入り口を施錠する',
+    ]
+  },
+  {
+    id: 'close',
+    label: '▼ クローズ作業（夜のレッスンがない場合）',
+    type: 'close',
+    items: [
+      '① トイレのゴミをゴミ箱に入れる',
+      '② ルンバをかける（スリッパを靴おきに重しとして乗せる）',
+      '③ トイレの便座の電気を消す',
+      '④ シャッターを閉める',
+    ]
+  }
+];
+
+const DAYS_JP = ['日','月','火','水','木','金','土'];
+let checkData = {};
+let currentMonth = null; // {year, month}
+
+function loadData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    checkData = raw ? JSON.parse(raw) : {};
+  } catch(e) { checkData = {}; }
+}
+
+function saveData() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(checkData));
+}
+
+function loadMonth() {
+  const saved = localStorage.getItem(MONTH_KEY);
+  const picker = document.getElementById('monthPicker');
+  if (saved) {
+    picker.value = saved;
+  } else {
+    const now = new Date();
+    const val = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+    picker.value = val;
+  }
+  parseMonth();
+}
+
+function parseMonth() {
+  const val = document.getElementById('monthPicker').value;
+  if (!val) return;
+  const [y, m] = val.split('-').map(Number);
+  currentMonth = { year: y, month: m };
+  localStorage.setItem(MONTH_KEY, val);
+  buildTable();
+}
+
+function getKey(section, itemIdx, day) {
+  return `${section}_${itemIdx}_${day}`;
+}
+
+function getTodayDay() {
+  if (!currentMonth) return -1;
+  const now = new Date();
+  if (now.getFullYear() === currentMonth.year && now.getMonth()+1 === currentMonth.month) {
+    return now.getDate();
+  }
+  return -1;
+}
+
+function buildTable() {
+  const today = getTodayDay();
+  const year = currentMonth ? currentMonth.year : new Date().getFullYear();
+  const month = currentMonth ? currentMonth.month : new Date().getMonth()+1;
+
+  // Build day header
+  const headerRow = document.getElementById('dayHeaderRow');
+  // Remove old day cells
+  while (headerRow.children.length > 1) headerRow.removeChild(headerRow.lastChild);
+
+  for (let d = 1; d <= 30; d++) {
+    const th = document.createElement('th');
+    const date = new Date(year, month-1, d);
+    const dow = date.getDay();
+    const dowStr = DAYS_JP[dow];
+    const isToday = d === today;
+    const cell = document.createElement('div');
+    cell.className = 'day-header-cell' + (isToday ? ' today-col' : '');
+    cell.innerHTML = `<span class="day-num">${d}</span><span class="day-of-week ${dow===0?'sun':dow===6?'sat':''}">${dowStr}</span>`;
+    th.appendChild(cell);
+    headerRow.appendChild(th);
+  }
+
+  // Build body
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = '';
+
+  SECTIONS.forEach(section => {
+    // Section header row
+    const secRow = document.createElement('tr');
+    secRow.className = `section-row ${section.type}`;
+    const secTd = document.createElement('td');
+    secTd.className = 'sticky-col';
+    secTd.textContent = section.label;
+    secRow.appendChild(secTd);
+    for (let d = 1; d <= 30; d++) {
+      const td = document.createElement('td');
+      secRow.appendChild(td);
+    }
+    tbody.appendChild(secRow);
+
+    // Item rows
+    section.items.forEach((item, idx) => {
+      const tr = document.createElement('tr');
+      tr.className = 'item-row';
+
+      // Label
+      const labelTd = document.createElement('td');
+      labelTd.className = 'sticky-col';
+      const labelDiv = document.createElement('div');
+      labelDiv.className = 'item-label';
+      labelDiv.textContent = item;
+      labelTd.appendChild(labelDiv);
+      tr.appendChild(labelTd);
+
+      // Day cells
+      for (let d = 1; d <= 30; d++) {
+        const key = getKey(section.id, idx, d);
+        const td = document.createElement('td');
+        const isToday = d === today;
+        td.className = `check-cell ${section.type}-item${isToday ? ' today-col' : ''}${checkData[key] ? ' checked' : ''}`;
+        td.dataset.key = key;
+        td.innerHTML = `<span class="check-icon">✓</span>`;
+        td.addEventListener('click', onCellClick);
+        tr.appendChild(td);
+      }
+
+      tbody.appendChild(tr);
+    });
+  });
+
+  // Note row
+  const noteRow = document.createElement('tr');
+  noteRow.className = 'note-row';
+  const noteTd = document.createElement('td');
+  noteTd.className = 'sticky-col';
+  noteTd.textContent = '※ リモコンが共通のためエアコンが2台稼働している場合あり。要確認。';
+  noteRow.appendChild(noteTd);
+  for (let d = 1; d <= 30; d++) {
+    const td = document.createElement('td');
+    noteRow.appendChild(td);
+  }
+  tbody.appendChild(noteRow);
+
+  updateProgress();
+}
+
+function onCellClick(e) {
+  const td = e.currentTarget;
+  const key = td.dataset.key;
+  const wasChecked = !!checkData[key];
+  if (wasChecked) {
+    delete checkData[key];
+    td.classList.remove('checked');
+  } else {
+    checkData[key] = true;
+    td.classList.add('checked');
+    showToast('✓ チェックしました');
+  }
+  saveData();
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = SECTIONS.reduce((s, sec) => s + sec.items.length, 0) * 30;
+  const done = Object.keys(checkData).length;
+  const pct = total > 0 ? Math.round(done / total * 100) : 0;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${done}/${total} (${pct}%)`;
+}
+
+function confirmReset() {
+  if (confirm('チェックデータをすべてリセットしますか？')) {
+    checkData = {};
+    saveData();
+    buildTable();
+    showToast('🔄 リセットしました');
+  }
+}
+
+let toastTimer = null;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 1500);
+}
+
+document.getElementById('monthPicker').addEventListener('change', parseMonth);
+
+loadData();
+loadMonth();
+</script>
+</body>
+</html>
