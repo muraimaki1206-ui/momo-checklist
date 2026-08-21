@@ -5,20 +5,12 @@
 
 <style>
 :root{
-  --paper:#F4F6F8;
-  --card:#FFFFFF;
-  --ink:#151E28;
-  --ink-2:#4A5763;
-  --ink-3:#7C8894;
-  --line:#DDE3E9;
-  --line-2:#EDF1F4;
-  --shu:#C33A2C;          /* 朱 — 不足・注意 */
-  --shu-soft:#FBECE9;
-  --shu-line:#EFC9C2;
-  --midori:#2E7457;       /* 済 */
-  --midori-soft:#E7F1EC;
-  --ai:#1F4E79;           /* 藍 — 見出し補助 */
-  --ai-soft:#E8EEF4;
+  --paper:#F4F6F8; --card:#FFFFFF;
+  --ink:#151E28; --ink-2:#4A5763; --ink-3:#7C8894;
+  --line:#DDE3E9; --line-2:#EDF1F4;
+  --shu:#C33A2C; --shu-soft:#FBECE9; --shu-line:#EFC9C2;
+  --midori:#2E7457; --midori-soft:#E7F1EC;
+  --ai:#1F4E79; --ai-soft:#E8EEF4; --ai-line:#C3D4E4;
   --shadow:0 1px 2px rgba(21,30,40,.05), 0 8px 24px -16px rgba(21,30,40,.28);
   --r:10px;
 }
@@ -28,7 +20,7 @@
     --line:#2A3644; --line-2:#222D3A;
     --shu:#E9705F; --shu-soft:#2C1D1B; --shu-line:#4A2C27;
     --midori:#6FBF9A; --midori-soft:#17281F;
-    --ai:#8FB6D8; --ai-soft:#1A2534;
+    --ai:#8FB6D8; --ai-soft:#1A2534; --ai-line:#2E4256;
     --shadow:0 1px 2px rgba(0,0,0,.35), 0 8px 24px -16px rgba(0,0,0,.6);
   }
 }
@@ -37,48 +29,34 @@
   --line:#2A3644; --line-2:#222D3A;
   --shu:#E9705F; --shu-soft:#2C1D1B; --shu-line:#4A2C27;
   --midori:#6FBF9A; --midori-soft:#17281F;
-  --ai:#8FB6D8; --ai-soft:#1A2534;
+  --ai:#8FB6D8; --ai-soft:#1A2534; --ai-line:#2E4256;
   --shadow:0 1px 2px rgba(0,0,0,.35), 0 8px 24px -16px rgba(0,0,0,.6);
 }
 
 *{box-sizing:border-box}
 body{
   margin:0; background:var(--paper); color:var(--ink);
-  font-family:'Noto Sans JP',system-ui,sans-serif;
-  font-size:15px; line-height:1.85;
+  font-family:'Noto Sans JP',system-ui,sans-serif; font-size:15px; line-height:1.85;
   -webkit-text-size-adjust:100%;
 }
 .wrap{max-width:820px; margin:0 auto; padding:0 20px 88px}
 h1,h2,h3,h4{font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif; text-wrap:balance; margin:0}
 .mono{font-family:'Roboto Mono',ui-monospace,monospace; font-variant-numeric:tabular-nums}
 
-/* ── sticky bar ── */
-.bar{
-  position:sticky; top:0; z-index:50;
-  background:color-mix(in srgb, var(--paper) 88%, transparent);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);
-}
+.bar{position:sticky; top:0; z-index:50; background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line)}
 .bar-in{max-width:820px; margin:0 auto; padding:9px 20px; display:flex; align-items:center; gap:12px}
 .bar-t{font-family:'Zen Kaku Gothic New',sans-serif; font-weight:700; font-size:13px; white-space:nowrap}
 .track{flex:1; height:5px; border-radius:3px; background:var(--line); overflow:hidden}
 .fill{height:100%; width:0%; background:var(--midori); border-radius:3px; transition:width .3s ease}
 .pct{font-size:12px; color:var(--ink-2); white-space:nowrap}
 
-/* ── masthead ── */
 header.top{padding:44px 0 30px; border-bottom:2px solid var(--ink)}
-.eyebrow{
-  font-size:11px; letter-spacing:.16em; font-weight:700; color:var(--shu);
-  text-transform:uppercase; display:flex; align-items:center; gap:9px; margin-bottom:14px;
-}
+.eyebrow{font-size:11px; letter-spacing:.16em; font-weight:700; color:var(--shu); text-transform:uppercase; display:flex; align-items:center; gap:9px; margin-bottom:14px}
 .eyebrow::after{content:''; flex:1; height:1px; background:var(--shu-line)}
 header.top h1{font-size:clamp(27px,6vw,40px); line-height:1.3; font-weight:700; letter-spacing:.01em}
 header.top p.lede{margin:14px 0 0; color:var(--ink-2); font-size:15px; max-width:60ch}
 .meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:20px}
-.tag{
-  font-size:11.5px; padding:3px 10px; border-radius:100px;
-  border:1px solid var(--line); color:var(--ink-2); background:var(--card);
-}
+.tag{font-size:11.5px; padding:3px 10px; border-radius:100px; border:1px solid var(--line); color:var(--ink-2); background:var(--card)}
 .tag.alert{border-color:var(--shu-line); background:var(--shu-soft); color:var(--shu); font-weight:700}
 
 section{padding-top:44px}
@@ -89,22 +67,34 @@ h2 .num{font-family:'Roboto Mono',monospace; font-size:12px; color:var(--shu); f
 .card{background:var(--card); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow)}
 .pad{padding:20px}
 
-/* ── verdict ── */
-.verdict{border-left:4px solid var(--shu); padding:20px 22px}
-.verdict h3{font-size:16px; margin-bottom:8px}
-.verdict p{margin:0; color:var(--ink-2); font-size:14.5px}
-.quote{
-  margin:14px 0 0; padding:12px 14px; background:var(--shu-soft);
-  border:1px solid var(--shu-line); border-radius:8px;
-  font-size:13.5px; color:var(--ink); line-height:1.8;
+/* track headers */
+.track-head{display:flex; align-items:center; gap:13px; margin-bottom:6px}
+.tk{
+  flex:0 0 auto; width:36px; height:36px; border-radius:9px; display:flex; align-items:center; justify-content:center;
+  font-family:'Zen Kaku Gothic New',sans-serif; font-weight:700; font-size:18px;
 }
+.tk.a{background:var(--shu); color:#fff}
+.tk.b{background:var(--ai); color:#fff}
+.track-head h2{margin:0}
+.track-note{font-size:13px; color:var(--ink-3); margin:0 0 20px}
 
-/* ── flow ── */
+/* split verdict */
+.split{display:grid; gap:12px; grid-template-columns:1fr}
+@media(min-width:620px){ .split{grid-template-columns:1fr 1fr} }
+.vcard{padding:18px 20px; border-radius:var(--r); border:1px solid var(--line); background:var(--card); box-shadow:var(--shadow)}
+.vcard.a{border-top:4px solid var(--shu)}
+.vcard.b{border-top:4px solid var(--ai)}
+.vcard .who{font-size:11px; font-weight:700; letter-spacing:.1em; margin-bottom:7px}
+.vcard.a .who{color:var(--shu)}
+.vcard.b .who{color:var(--ai)}
+.vcard h3{font-size:16px; margin-bottom:8px}
+.vcard p{margin:0; font-size:13.5px; color:var(--ink-2)}
+.vcard .todo{margin-top:11px; padding-top:11px; border-top:1px solid var(--line-2); font-size:13.5px; font-weight:700}
+.quote{margin:13px 0 0; padding:11px 13px; background:var(--line-2); border-radius:8px; font-size:12.5px; color:var(--ink-2); line-height:1.75}
+
+/* flow */
 .flow{display:flex; align-items:stretch; gap:6px; overflow-x:auto; padding:4px 0 10px}
-.step-chip{
-  flex:1 0 auto; min-width:104px; text-align:center; padding:13px 8px;
-  border:1px solid var(--line); border-radius:8px; background:var(--card);
-}
+.step-chip{flex:1 0 auto; min-width:104px; text-align:center; padding:13px 8px; border:1px solid var(--line); border-radius:8px; background:var(--card)}
 .step-chip .n{font-family:'Roboto Mono',monospace; font-size:10.5px; color:var(--ink-3); display:block}
 .step-chip .l{font-size:13.5px; font-weight:700; font-family:'Zen Kaku Gothic New',sans-serif}
 .step-chip .s{font-size:10.5px; color:var(--ink-3); display:block; margin-top:2px}
@@ -112,51 +102,36 @@ h2 .num{font-family:'Roboto Mono',monospace; font-size:12px; color:var(--shu); f
 .step-chip.miss .l,.step-chip.miss .s{color:var(--shu)}
 .arrow{display:flex; align-items:center; color:var(--ink-3); font-size:13px; flex:0 0 auto}
 
-/* ── steps ── */
+/* steps */
 ol.steps{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px}
 ol.steps li{display:flex; gap:14px; padding:15px 17px; background:var(--card); border:1px solid var(--line); border-radius:var(--r)}
-ol.steps .idx{
-  flex:0 0 auto; width:30px; height:30px; border-radius:50%;
-  background:var(--ai-soft); color:var(--ai); font-family:'Roboto Mono',monospace;
-  font-size:12px; font-weight:500; display:flex; align-items:center; justify-content:center;
-}
+ol.steps .idx{flex:0 0 auto; width:30px; height:30px; border-radius:50%; font-family:'Roboto Mono',monospace; font-size:12px; font-weight:500; display:flex; align-items:center; justify-content:center}
+ol.steps.a .idx{background:var(--shu-soft); color:var(--shu)}
+ol.steps.b .idx{background:var(--ai-soft); color:var(--ai)}
 ol.steps .body{flex:1; min-width:0}
 ol.steps h4{font-size:15px; margin-bottom:3px}
 ol.steps p{margin:0; font-size:13.5px; color:var(--ink-2)}
 .when{display:inline-block; margin-top:7px; font-size:11px; padding:2px 8px; border-radius:100px; background:var(--line-2); color:var(--ink-2)}
 .when.now{background:var(--shu-soft); color:var(--shu); font-weight:700; border:1px solid var(--shu-line)}
 
-/* ── check items ── */
+/* checks */
 label.chk{display:flex; gap:11px; align-items:flex-start; padding:8px 0; cursor:pointer; border-bottom:1px solid var(--line-2)}
 label.chk:last-child{border-bottom:0}
-label.chk input{
-  appearance:none; -webkit-appearance:none; flex:0 0 auto;
-  width:19px; height:19px; margin-top:3px; border:1.5px solid var(--ink-3);
-  border-radius:5px; background:var(--card); cursor:pointer; position:relative; transition:.15s;
-}
+label.chk input{appearance:none; -webkit-appearance:none; flex:0 0 auto; width:19px; height:19px; margin-top:3px; border:1.5px solid var(--ink-3); border-radius:5px; background:var(--card); cursor:pointer; position:relative; transition:.15s}
 label.chk input:checked{background:var(--midori); border-color:var(--midori)}
-label.chk input:checked::after{
-  content:'✓'; position:absolute; inset:0; color:#fff; font-size:13px; font-weight:700;
-  display:flex; align-items:center; justify-content:center;
-}
+label.chk input:checked::after{content:'✓'; position:absolute; inset:0; color:#fff; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center}
 label.chk input:focus-visible{outline:2px solid var(--ai); outline-offset:2px}
 label.chk span{font-size:14px; line-height:1.7}
 label.chk input:checked + span{color:var(--ink-3); text-decoration:line-through}
 
-/* ── expense cards ── */
+/* expense cards */
 .exp-grid{display:grid; gap:11px}
 details.exp{background:var(--card); border:1px solid var(--line); border-radius:var(--r); overflow:hidden}
 details.exp[open]{border-color:var(--ai)}
-details.exp summary{
-  list-style:none; cursor:pointer; padding:13px 16px;
-  display:flex; align-items:center; gap:12px;
-}
+details.exp summary{list-style:none; cursor:pointer; padding:13px 16px; display:flex; align-items:center; gap:12px}
 details.exp summary::-webkit-details-marker{display:none}
-.badge{
-  flex:0 0 auto; font-family:'Roboto Mono',monospace; font-size:12px; font-weight:500;
-  width:26px; height:26px; border-radius:6px; background:var(--ai-soft); color:var(--ai);
-  display:flex; align-items:center; justify-content:center;
-}
+.badge{flex:0 0 auto; font-family:'Roboto Mono',monospace; font-size:12px; font-weight:500; width:26px; height:26px; border-radius:6px; background:var(--ai-soft); color:var(--ai); display:flex; align-items:center; justify-content:center}
+.badge.a{background:var(--shu-soft); color:var(--shu)}
 .exp-name{flex:1; min-width:0; font-size:14.5px; font-weight:500; font-family:'Zen Kaku Gothic New',sans-serif}
 .exp-name em{display:block; font-style:normal; font-size:11.5px; color:var(--ink-3); font-family:'Noto Sans JP',sans-serif; font-weight:400}
 .chev{color:var(--ink-3); font-size:12px; transition:transform .2s}
@@ -168,54 +143,47 @@ details.exp[open] .chev{transform:rotate(180deg)}
 .need-h.extra{color:var(--ai)}
 .need ul{margin:0; padding-left:19px; font-size:13.5px; color:var(--ink-2); line-height:1.85}
 .need ul strong{color:var(--ink)}
-.unknown{border-style:dashed; opacity:.9}
-.unknown .badge{background:var(--line-2); color:var(--ink-3)}
 
-/* ── table ── */
+/* table */
 .scroll{overflow-x:auto; border:1px solid var(--line); border-radius:var(--r); background:var(--card)}
-table{border-collapse:collapse; width:100%; min-width:560px; font-size:13.5px}
+table{border-collapse:collapse; width:100%; min-width:520px; font-size:13.5px}
 th,td{padding:10px 13px; text-align:left; border-bottom:1px solid var(--line-2); vertical-align:top}
 th{background:var(--line-2); font-weight:700; font-size:12px; white-space:nowrap}
 tr:last-child td{border-bottom:0}
-td strong{font-weight:700}
-.who{font-size:11.5px; color:var(--ink-3); white-space:nowrap}
+td.n{font-family:'Roboto Mono',monospace; color:var(--ai); font-weight:500; white-space:nowrap}
+td.qty{white-space:nowrap; font-weight:700}
+td.qty.multi{color:var(--shu)}
+.who2{font-size:11.5px; color:var(--ink-3); white-space:nowrap}
 
-/* ── danger ── */
+/* danger */
 .danger{border:1px solid var(--shu-line); background:var(--shu-soft); border-radius:var(--r); padding:20px 22px}
 .danger h3{color:var(--shu); font-size:16px; margin-bottom:12px}
 .danger ul{margin:0; padding-left:20px; font-size:14px; line-height:1.9}
 .danger li{margin-bottom:9px}
 .danger li:last-child{margin-bottom:0}
 .danger li strong{color:var(--shu)}
+.warn{border:1px solid var(--ai-line); background:var(--ai-soft); border-radius:var(--r); padding:16px 20px; font-size:13.5px; color:var(--ink-2)}
+.warn strong{color:var(--ink)}
 
-/* ── mail ── */
+/* mail */
 .mail{background:var(--card); border:1px solid var(--line); border-radius:var(--r); overflow:hidden}
 .mail-h{display:flex; align-items:center; gap:10px; padding:11px 15px; border-bottom:1px solid var(--line-2); background:var(--line-2)}
 .mail-h b{font-size:13px; flex:1}
-.copy{
-  font:inherit; font-size:11.5px; padding:4px 12px; border-radius:100px; cursor:pointer;
-  border:1px solid var(--line); background:var(--card); color:var(--ink-2);
-}
+.copy{font:inherit; font-size:11.5px; padding:4px 12px; border-radius:100px; cursor:pointer; border:1px solid var(--line); background:var(--card); color:var(--ink-2)}
 .copy:hover{border-color:var(--ai); color:var(--ai)}
 .copy:focus-visible{outline:2px solid var(--ai); outline-offset:2px}
-.mail pre{
-  margin:0; padding:15px; font-family:'Noto Sans JP',sans-serif; font-size:13px;
-  line-height:1.9; white-space:pre-wrap; word-break:break-word; color:var(--ink-2);
-}
+.mail pre{margin:0; padding:15px; font-family:'Noto Sans JP',sans-serif; font-size:13px; line-height:1.9; white-space:pre-wrap; word-break:break-word; color:var(--ink-2)}
 
-/* ── files ── */
+/* files */
 .files{display:grid; gap:8px}
 .file{display:flex; gap:12px; align-items:center; padding:11px 15px; background:var(--card); border:1px solid var(--line); border-radius:8px}
-.file .fn{font-family:'Roboto Mono',monospace; font-size:12.5px; flex:0 0 auto; color:var(--ai)}
+.file .fn{font-family:'Roboto Mono',monospace; font-size:11px; flex:0 0 auto; padding:2px 8px; border-radius:5px; background:var(--ai-soft); color:var(--ai); font-weight:500}
+.file .fn.a{background:var(--shu-soft); color:var(--shu)}
 .file .fd{font-size:13px; color:var(--ink-2); flex:1}
 
 footer{margin-top:56px; padding-top:22px; border-top:1px solid var(--line); font-size:12.5px; color:var(--ink-3); line-height:1.9}
 footer a{color:var(--ai)}
-.toast{
-  position:fixed; left:50%; bottom:24px; transform:translate(-50%,70px);
-  background:var(--ink); color:var(--paper); font-size:13px; padding:9px 18px;
-  border-radius:100px; transition:transform .25s; z-index:99; pointer-events:none;
-}
+.toast{position:fixed; left:50%; bottom:24px; transform:translate(-50%,70px); background:var(--ink); color:var(--paper); font-size:13px; padding:9px 18px; border-radius:100px; transition:transform .25s; z-index:99; pointer-events:none}
 .toast.on{transform:translate(-50%,0)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
 @media (max-width:560px){ .wrap{padding:0 15px 72px} .bar-in{padding:9px 15px} }
@@ -232,28 +200,96 @@ footer a{color:var(--ai)}
 <div class="wrap">
 
 <header class="top">
-  <div class="eyebrow">修正依頼への対応</div>
+  <div class="eyebrow">第17回 ／ 修正依頼への対応</div>
   <h1>持続化補助金<br>実績報告 再提出ナビ</h1>
-  <p class="lede">2026年8月20日 13:30 付で届いた修正依頼3件は、突き詰めると指摘は<strong>ひとつ</strong>です。経費①〜⑫のすべてで「発注・契約」と「納品・検収」の証憑が抜けている。ここを埋めれば審査は前に進みます。</p>
+  <p class="lede">2026年8月20日 13:30 付の修正依頼3件のうち、1件目は事務局の前置きです。実際に対応すべき指摘は<strong>2つあり、中身がまったく違います</strong>。①〜⑦は「ラベルを貼って写真を撮る」、⑧〜⑫は「書類を集める」。別作業なので、同時並行で進めてください。</p>
   <div class="meta">
     <span class="tag alert">修正依頼 3件</span>
     <span class="tag">項目名：証憑添付</span>
-    <span class="tag">対象：経費 ①〜⑫</span>
+    <span class="tag">①〜⑦ 表示写真</span>
+    <span class="tag">⑧〜⑫ 証憑書類</span>
     <span class="tag mono">2026/08/20 13:30</span>
   </div>
 </header>
 
 <section>
-  <h2><span class="num">01</span>いま何が起きているか</h2>
-  <p class="sub">3件のうち1件目は事務局からの前置きです。実際に直すべき指摘は残り2件で、内容は同じものです。</p>
+  <h2><span class="num">01</span>指摘は2種類ある</h2>
+  <p class="sub">同じ「証憑添付」という項目名で届いていますが、求められているものは別物です。まずここを取り違えないでください。</p>
 
-  <div class="card verdict">
-    <h3>指摘は「5段階のうち真ん中2つが無い」ということ</h3>
-    <p>見積・請求・支払の書類は提出済み。ですが補助金の実績報告では、1件の経費につき次の5段階すべてを書類でつなげて証明する必要があります。</p>
-    <div class="quote">「①機械装置等費〜⑫ウェブサイト関連費について、証憑<strong>「発注・契約」「納品・検収」</strong>が確認できませんでした。必要な証拠書類をご提出ください。」</div>
+  <div class="split">
+    <div class="vcard a">
+      <div class="who">トラック A ／ 経費 ①〜⑦</div>
+      <h3>「第17回持続化」の表示写真</h3>
+      <p>機械装置等費で買った7項目に、補助金で取得したことを示す<strong>表示（ラベル）を貼る義務</strong>があります。その表示が写真で確認できないため差し戻されています。</p>
+      <div class="quote">「取得物に『第17回持続化』等の表示があることを確認できませんでした。表示状況が分かる写真をご提出ください。」</div>
+      <div class="todo">→ 書類ではなく、ラベルと写真の作業です</div>
+    </div>
+    <div class="vcard b">
+      <div class="who">トラック B ／ 経費 ⑧〜⑫</div>
+      <h3>「発注・契約」「納品・検収」の書類</h3>
+      <p>証憑の5段階のうち、<strong>真ん中の2つが提出されていません</strong>。見積・請求・支払は出ていますが、発注書／契約書と納品書／検収書が抜けています。</p>
+      <div class="quote">「証憑『発注・契約』『納品・検収』が確認できませんでした。必要な証拠書類をご提出ください。」</div>
+      <div class="todo">→ 取引先への依頼が発生します。最優先で着手</div>
+    </div>
   </div>
 
-  <div class="flow" role="list" style="margin-top:18px">
+  <div class="card pad" style="margin-top:14px; border-left:4px solid var(--midori)">
+    <h3 style="font-size:16px; margin-bottom:8px">審査はまだ始まっていません</h3>
+    <p style="margin:0; font-size:14px; color:var(--ink-2)">1件目のコメントにあるとおり、事務局は「要件がすべて確認できた段階で詳細な審査を実施」します。つまり<strong>A・B両方そろうまで審査そのものが始まらず、入金も進みません</strong>。逆に言えば、落とされたわけではありません。そろえれば進みます。</p>
+  </div>
+</section>
+
+<section>
+  <div class="track-head"><span class="tk a">A</span><h2>①〜⑦：ラベルを貼って写真を撮る</h2></div>
+  <p class="track-note">自分だけで完結する作業です。取引先を待つ必要がないので、今日中に着手できます。</p>
+
+  <ol class="steps a">
+    <li><span class="idx">1</span><div class="body"><h4>ラベルを作る</h4><p>同梱の <span class="mono">08_表示ラベル印刷シート.html</span> をブラウザで開き、事業者名と取得年月日を入れて印刷します。普通紙に印刷して切り取り、両面テープで貼っても構いません。油性ペンの手書きでも問題ありません。</p><span class="when now">30分</span></div></li>
+    <li><span class="idx">2</span><div class="body"><h4>すべての現物に貼る</h4><p><strong>「購入した商品すべて」が対象です。</strong>会議用テーブル2台なら2枚、面談用イス2脚なら2枚。天板の裏や座面の裏など、普段見えない面で構いません。</p><span class="when now">1時間</span></div></li>
+    <li><span class="idx">3</span><div class="body"><h4>1品目につき2枚撮る</h4><p><strong>全体写真</strong>（店舗内で使っている状況が分かる引き）と<strong>表示のアップ</strong>（文字がはっきり読める寄り）。明るい場所で、正面から、影が入らないように。</p><span class="when now">1時間</span></div></li>
+    <li><span class="idx">4</span><div class="body"><h4>経費番号ごとにPDFにしてアップロード</h4><p><span class="mono">04_表示写真_会議用テーブル2台.pdf</span> のように、番号と品目が分かる名前を付けます。</p><span class="when">30分</span></div></li>
+  </ol>
+
+  <h3 style="font-size:16px; margin:26px 0 10px">貼る場所と枚数</h3>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>No</th><th>品目</th><th>枚数</th><th>貼付位置の候補</th></tr></thead>
+      <tbody>
+        <tr><td class="n">①</td><td>照明LEDダウンライト</td><td class="qty">設置数</td><td>器具の側面・枠の内側・天井の目立たない位置</td></tr>
+        <tr><td class="n">②</td><td>折りたたみパーテーション</td><td class="qty">1</td><td>脚部・フレーム裏・背面下部</td></tr>
+        <tr><td class="n">③</td><td>靴箱＆スリッパ入れ</td><td class="qty">1〜2</td><td>側面下部・背面</td></tr>
+        <tr><td class="n">④</td><td>会議用テーブル</td><td class="qty multi">2台とも</td><td>天板の裏・脚の内側</td></tr>
+        <tr><td class="n">⑤</td><td>オープンシェルフ</td><td class="qty">1</td><td>側板の内側・背面</td></tr>
+        <tr><td class="n">⑥</td><td>面談用イス（＋配送料）</td><td class="qty multi">2脚とも</td><td>座面の裏・脚の内側</td></tr>
+        <tr><td class="n">⑦</td><td>面談用ラウンドテーブル</td><td class="qty multi">2台とも</td><td>天板の裏・脚の内側</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="warn" style="margin-top:12px">
+    <strong>①LEDダウンライトは要注意。</strong>天井埋め込みでラベルが貼れない場合、器具のすぐ脇や分電盤・スイッチプレート脇にまとめて貼る方法があります。ただし<strong>この扱いは事前に事務局または商工会議所／商工会に確認してください</strong>。<br>
+    なお、⑥に含まれる<strong>配送料は「物」ではない</strong>のでラベルは不要です。
+  </div>
+
+  <h3 style="font-size:16px; margin:26px 0 10px">ここで落ちます</h3>
+  <div class="danger">
+    <h3>写真の撮り直しになる典型例</h3>
+    <ul>
+      <li><strong>未開封・未使用の写真。</strong>段ボールに入ったまま、包装されたままの写真では「事業が完了した」と認められません。<strong>設置・使用している状態</strong>で撮ってください。</li>
+      <li><strong>一部の品にしか貼っていない。</strong>2台買ったものは2台とも必要です。</li>
+      <li><strong>表示が読めない。</strong>ぼやけている、光が反射して白飛びしている、暗くて文字がつぶれている。撮ったらその場で拡大して確認してください。</li>
+      <li><strong>全体写真だけで、表示のアップが無い。</strong>2枚撮るほうが確実です。</li>
+    </ul>
+  </div>
+
+  <h3 style="font-size:16px; margin:26px 0 10px">撮影チェック</h3>
+  <div class="card pad" id="photoList"></div>
+</section>
+
+<section>
+  <div class="track-head"><span class="tk b">B</span><h2>⑧〜⑫：不足している書類を集める</h2></div>
+  <p class="track-note">取引先の対応待ちが一番時間を食います。依頼だけは今日中に投げてください。</p>
+
+  <div class="flow" role="list">
     <div class="step-chip" role="listitem"><span class="n">STAGE 1</span><span class="l">見積</span><span class="s">提出済</span></div>
     <div class="arrow">→</div>
     <div class="step-chip miss" role="listitem"><span class="n">STAGE 2</span><span class="l">発注・契約</span><span class="s">未提出</span></div>
@@ -265,58 +301,43 @@ footer a{color:var(--ai)}
     <div class="step-chip" role="listitem"><span class="n">STAGE 5</span><span class="l">支払</span><span class="s">提出済</span></div>
   </div>
 
-  <div class="card verdict" style="margin-top:16px; border-left-color:var(--ai)">
-    <h3>審査はまだ始まっていません</h3>
-    <p>1件目のコメントにあるとおり、事務局は「要件がすべて確認できた段階で詳細な審査を実施」します。つまり<strong>書類がそろうまで審査そのものが始まらず、入金も進みません</strong>。逆に言えば、落とされたわけではありません。そろえれば進みます。</p>
-  </div>
-</section>
-
-<section>
-  <h2><span class="num">02</span>進め方（7ステップ）</h2>
-  <p class="sub">最優先はSTEP 3。取引先の対応待ちが一番時間を食います。自社で作る書類は後からでも間に合うので、今日中に全取引先へ依頼を投げてください。</p>
-  <ol class="steps">
-    <li><span class="idx">1</span><div class="body"><h4>修正依頼の全文を確認する</h4><p>画面では3件目のコメントが途中で切れています。申請システムで全文を開き、③〜⑦がどの経費なのかを確定させてください。</p><span class="when now">今日</span></div></li>
-    <li><span class="idx">2</span><div class="body"><h4>経費①〜⑫の管理表を埋める</h4><p>取引先・金額・日付・手元にある書類の有無を一覧化します。同梱の「証憑チェックリスト」を使ってください。</p><span class="when now">今日</span></div></li>
-    <li><span class="idx">3</span><div class="body"><h4>取引先へ不足書類の発行を依頼する</h4><p>注文請書・納品書・工事完了報告書などを依頼。同梱の依頼文をコピーして、PDFデータで、期限を切って送ります。</p><span class="when now">今日〜2日</span></div></li>
-    <li><span class="idx">4</span><div class="body"><h4>取引先から出ない分は自社で作る</h4><p>発注書の控え・検収書・工事完了確認書は自社で作成できます。相手を待たずに着手できます。</p><span class="when">2〜3日</span></div></li>
-    <li><span class="idx">5</span><div class="body"><h4>商工会議所／商工会に事前チェックしてもらう</h4><p>提出前に担当者に見てもらうと、二度目の差し戻しを大きく減らせます。</p><span class="when">1〜2日</span></div></li>
-    <li><span class="idx">6</span><div class="body"><h4>申請システムにアップロードする</h4><p>該当の経費ごとに、証憑区分「発注・契約」「納品・検収」を選んでPDFを添付します。</p><span class="when">半日</span></div></li>
-    <li><span class="idx">7</span><div class="body"><h4>再提出して、事務局からの連絡を待つ</h4><p>指摘された項目は全部そろえてから提出します。一部だけの再提出は避けてください。</p><span class="when">—</span></div></li>
+  <ol class="steps b" style="margin-top:14px">
+    <li><span class="idx">1</span><div class="body"><h4>⑧〜⑫の取引先・金額・日付を一覧化する</h4><p>同梱の「証憑チェックリスト」に、手元にある書類の有無まで含めて埋めます。</p><span class="when now">今日</span></div></li>
+    <li><span class="idx">2</span><div class="body"><h4>取引先へ不足書類の発行を依頼する</h4><p>下のセクションの依頼文をコピーして、PDFで、期限を切って送ります。同じ取引先に複数項目をまとめて依頼すると早く片付きます。</p><span class="when now">今日〜2日</span></div></li>
+    <li><span class="idx">3</span><div class="body"><h4>取引先から出ない分は自社で作る</h4><p>発注書の控え・検収書・工事完了確認書は自社で作成できます。相手を待たずに着手できます。</p><span class="when">2〜3日</span></div></li>
+    <li><span class="idx">4</span><div class="body"><h4>商工会議所／商工会に事前チェックしてもらう</h4><p>提出前に担当者に見てもらうと、二度目の差し戻しを大きく減らせます。</p><span class="when">1〜2日</span></div></li>
+    <li><span class="idx">5</span><div class="body"><h4>証憑区分を選んでアップロードする</h4><p>該当の経費ごとに「発注・契約」「納品・検収」を選んで添付します。</p><span class="when">半日</span></div></li>
   </ol>
-</section>
 
-<section>
-  <h2><span class="num">03</span>証憑「5点セット」早見表</h2>
+  <h3 style="font-size:16px; margin:26px 0 10px">証憑「5点セット」早見表</h3>
   <p class="sub">★の2つが今回の不足分です。太字の書類は取引先を待たずに自社で作れます。</p>
   <div class="scroll">
     <table>
       <thead><tr><th>区分</th><th>具体的に何を出すか</th><th>誰が作る</th></tr></thead>
       <tbody>
-        <tr><td>見積</td><td>見積書。金額基準を超える発注は2者以上の相見積＋比較検討の記録</td><td class="who">取引先</td></tr>
-        <tr><td><strong>★発注・契約</strong></td><td><strong>発注書／注文書（自社控え）</strong>＋注文請書／工事請負契約書・業務委託契約書・申込書控え／発注の意思表示が残るメール・LINE＋申立書</td><td class="who">自社＋取引先</td></tr>
-        <tr><td><strong>★納品・検収</strong></td><td>納品書、<strong>検収書</strong>、引渡書、工事完了報告書、納品物一覧＋現物写真・画面キャプチャ</td><td class="who">自社＋取引先</td></tr>
-        <tr><td>請求</td><td>請求書</td><td class="who">取引先</td></tr>
-        <tr><td>支払</td><td>銀行振込明細・通帳コピー・領収書（カード払いは利用明細＋口座引落が分かるページ）</td><td class="who">銀行・取引先</td></tr>
+        <tr><td>見積</td><td>見積書。金額基準を超える発注は2者以上の相見積＋比較検討の記録</td><td class="who2">取引先</td></tr>
+        <tr><td><strong>★発注・契約</strong></td><td><strong>発注書／注文書（自社控え）</strong>＋注文請書／工事請負契約書・業務委託契約書／発注の意思表示が残るメール・LINE＋申立書</td><td class="who2">自社＋取引先</td></tr>
+        <tr><td><strong>★納品・検収</strong></td><td>納品書、<strong>検収書</strong>、引渡書、工事完了報告書、納品物一覧＋現物写真・画面キャプチャ</td><td class="who2">自社＋取引先</td></tr>
+        <tr><td>請求</td><td>請求書</td><td class="who2">取引先</td></tr>
+        <tr><td>支払</td><td>銀行振込明細・通帳コピー・領収書（カード払いは利用明細＋口座引落が分かるページ）</td><td class="who2">銀行・取引先</td></tr>
       </tbody>
     </table>
   </div>
-</section>
 
-<section>
-  <h2><span class="num">04</span>経費ごとに集めるもの</h2>
-  <p class="sub">タップすると、その経費で必要な書類が開きます。③〜⑦はコメントが途中で切れているため、システムで全文を確認して確定させてください。</p>
+  <h3 style="font-size:16px; margin:26px 0 10px">項目ごとに集めるもの</h3>
+  <p class="sub">タップすると、その経費で必要な書類が開きます。</p>
   <div class="exp-grid" id="expGrid"></div>
 </section>
 
 <section>
-  <h2><span class="num">05</span>書類が出てこないときの代替手段</h2>
+  <h2><span class="num">02</span>書類が出てこないときの代替手段</h2>
   <p class="sub">事務局が確認したいのは「実際にその取引があったこと」です。正式な様式でなくても、事実が確認できる資料なら代替になり得ます。</p>
   <div class="scroll">
     <table>
       <thead><tr><th>出ない書類</th><th>代替案</th></tr></thead>
       <tbody>
         <tr><td>注文請書</td><td>自社の<strong>発注書（控）</strong>＋取引先からの受注承諾メール／LINEのスクリーンショット</td></tr>
-        <tr><td>契約書</td><td>発注書（控）＋見積書への承諾メール＋<strong>申立書</strong>（契約書を取り交わしていない旨）</td></tr>
+        <tr><td>契約書</td><td>発注書（控）＋見積書への承諾メール＋<strong>申立書</strong></td></tr>
         <tr><td>納品書</td><td>自社発行の<strong>検収書</strong>（取引先の受領印またはメールでの確認をもらう）＋現物写真</td></tr>
         <tr><td>工事完了報告書</td><td>自社発行の<strong>工事完了確認書</strong>＋施工前後の写真</td></tr>
         <tr><td>ネット通販で書類が無い</td><td>注文確認メール＝発注、出荷完了メール／配送伝票＝納品、として提出</td></tr>
@@ -327,11 +348,11 @@ footer a{color:var(--ai)}
 </section>
 
 <section>
-  <h2><span class="num">06</span>取引先へ送る依頼文</h2>
+  <h2><span class="num">03</span>取引先へ送る依頼文</h2>
   <p class="sub">コピーして、そのままメールやLINEで送れます。期限を必ず書き、PDFデータで先にもらうのがコツです。</p>
 
   <div class="mail" style="margin-bottom:11px">
-    <div class="mail-h"><b>文例A｜物品購入の取引先へ（標準）</b><button class="copy" data-t="mailA">コピー</button></div>
+    <div class="mail-h"><b>文例A｜⑨ロゴなど 物品・制作物の取引先へ</b><button class="copy" data-t="mailA">コピー</button></div>
     <pre id="mailA">件名：【補助金の手続きに伴う書類ご発行のお願い】注文請書・納品書について
 
 【取引先名】
@@ -343,7 +364,7 @@ footer a{color:var(--ai)}
 
 つきましては、下記の件につきまして、注文請書と納品書をご発行いただけますでしょうか。
 
-■ 対象：【例：照明LEDダウンライト 一式】
+■ 対象：【例：ロゴデザイン制作 一式】
 ■ 金額：【　　　　　円（税込）】
 ■ 御見積書：【　年　月　日】付
 ■ 御請求書：【　年　月　日】付
@@ -364,7 +385,7 @@ TEL：【　　　　】／ Mail：【　　　　】</pre>
   </div>
 
   <div class="mail" style="margin-bottom:11px">
-    <div class="mail-h"><b>文例B｜工事業者へ（看板・内装外装）</b><button class="copy" data-t="mailB">コピー</button></div>
+    <div class="mail-h"><b>文例B｜⑧看板・⑪内装外装工事の業者へ</b><button class="copy" data-t="mailB">コピー</button></div>
     <pre id="mailB">件名：【補助金手続き】工事完了報告書・契約書控えのご提供のお願い
 
 【施工業者名】
@@ -390,7 +411,7 @@ TEL：【　　　　】／ Mail：【　　　　】</pre>
   </div>
 
   <div class="mail">
-    <div class="mail-h"><b>文例C｜ウェブ・システム制作会社へ</b><button class="copy" data-t="mailC">コピー</button></div>
+    <div class="mail-h"><b>文例C｜⑩ウェブ・⑫LINEシステムの制作会社へ</b><button class="copy" data-t="mailC">コピー</button></div>
     <pre id="mailC">件名：【補助金手続き】ご契約書控え・納品確認のお願い
 
 【制作会社名】
@@ -414,7 +435,7 @@ TEL：【　　　　】／ Mail：【　　　　】</pre>
 </section>
 
 <section>
-  <h2><span class="num">07</span>絶対にやってはいけないこと</h2>
+  <h2><span class="num">04</span>絶対にやってはいけないこと</h2>
   <p class="sub">ここを踏み外すと、差し戻しでは済まなくなります。</p>
   <div class="danger">
     <h3>不正受給になる行為</h3>
@@ -423,35 +444,37 @@ TEL：【　　　　】／ Mail：【　　　　】</pre>
       <li><strong>交付決定日より前の発注・契約・納品・支払。</strong>交付決定前に発注していた経費は補助対象外です。日付を必ず確認してください。</li>
       <li><strong>金額の不一致。</strong>見積・発注・納品・請求・支払の金額がつながらないと差し戻されます。</li>
       <li><strong>宛名が個人名・屋号違い。</strong>申請した事業者名と一致させてください。</li>
-      <li><strong>一部だけの再提出。</strong>指摘された項目は全部そろえてから提出します。</li>
+      <li><strong>A・Bどちらか片方だけの再提出。</strong>両方そろえてから提出します。</li>
     </ul>
   </div>
 </section>
 
 <section>
-  <h2><span class="num">08</span>再提出前の最終チェック</h2>
+  <h2><span class="num">05</span>再提出前の最終チェック</h2>
   <p class="sub">チェックはこの端末に保存されます。全部つけてから提出ボタンを押してください。</p>
   <div class="card pad" id="finalList"></div>
 </section>
 
 <section>
-  <h2><span class="num">09</span>同梱の書類テンプレート</h2>
+  <h2><span class="num">06</span>同梱の書類テンプレート</h2>
   <p class="sub">リポジトリの <span class="mono">jizokuka/</span> フォルダに、記入用のWord（.docx）とMarkdownを入れてあります。【　】を埋めれば完成します。</p>
   <div class="files">
-    <div class="file"><span class="fn">01</span><span class="fd"><strong>発注書</strong>　発注・契約の証憑。自社で作成し、控えのコピーを提出</span></div>
-    <div class="file"><span class="fn">02</span><span class="fd"><strong>注文請書</strong>　取引先に渡す雛形。社名・押印して返送してもらう</span></div>
-    <div class="file"><span class="fn">03</span><span class="fd"><strong>検収書</strong>　納品・検収の証憑。物品・サービス共通。納品書の代替になる</span></div>
-    <div class="file"><span class="fn">04</span><span class="fd"><strong>工事完了確認書</strong>　⑧看板設置・⑪内装外装工事用。写真とセットで</span></div>
-    <div class="file"><span class="fn">05</span><span class="fd"><strong>納品確認書</strong>　⑨ロゴ・⑩ウェブ／写真撮影・⑫LINEシステム用</span></div>
-    <div class="file"><span class="fn">06</span><span class="fd"><strong>申立書</strong>　正規の証憑が存在しない理由を説明する書類</span></div>
-    <div class="file"><span class="fn">—</span><span class="fd"><strong>取引先への依頼文例</strong>　上のセクション06と同じ内容のテキスト版</span></div>
-    <div class="file"><span class="fn">—</span><span class="fd"><strong>証憑チェックリスト</strong>　経費①〜⑫の書類そろえ管理表</span></div>
+    <div class="file"><span class="fn a">A 08</span><span class="fd"><strong>表示ラベル印刷シート</strong>　「第17回持続化」ラベルを枚数指定して印刷（ブラウザで開く）</span></div>
+    <div class="file"><span class="fn a">A 09</span><span class="fd"><strong>撮影チェックリスト</strong>　貼付位置・撮り方・品目ごとのチェック表</span></div>
+    <div class="file"><span class="fn">B 01</span><span class="fd"><strong>発注書</strong>　発注・契約の証憑。自社で作成し、控えのコピーを提出</span></div>
+    <div class="file"><span class="fn">B 02</span><span class="fd"><strong>注文請書</strong>　取引先に渡す雛形。社名・押印して返送してもらう</span></div>
+    <div class="file"><span class="fn">B 03</span><span class="fd"><strong>検収書</strong>　納品・検収の証憑。納品書の代替になる</span></div>
+    <div class="file"><span class="fn">B 04</span><span class="fd"><strong>工事完了確認書</strong>　⑧看板設置・⑪内装外装工事用。写真とセットで</span></div>
+    <div class="file"><span class="fn">B 05</span><span class="fd"><strong>納品確認書</strong>　⑨ロゴ・⑩ウェブ／写真撮影・⑫LINEシステム用</span></div>
+    <div class="file"><span class="fn">B 06</span><span class="fd"><strong>取引先への依頼文例</strong>　上のセクション03と同じ内容のテキスト版</span></div>
+    <div class="file"><span class="fn">B 07</span><span class="fd"><strong>申立書</strong>　正規の証憑が存在しない理由を説明する書類</span></div>
+    <div class="file"><span class="fn">共通</span><span class="fd"><strong>証憑チェックリスト</strong>　経費①〜⑫の管理表</span></div>
   </div>
 </section>
 
 <footer>
-  相見積が必要になる金額基準や様式は<strong>公募回次によって異なります</strong>。最終的な判断は、ご自身の交付決定通知に対応する公募要領・実績報告の手引きと、商工会議所／商工会の担当者の指示に従ってください。<br>
-  参考：<a href="https://www.jizokuka-portal.info/">申請システム</a>　/　<a href="https://www.r6.jizokukahojokin.info/jisseki.php">実績報告の手引き</a>　/　<a href="https://s23.jizokukahojokin.info/matomekata/sakusei2.php">実績報告書のまとめ方</a><br>
+  相見積が必要になる金額基準や様式は<strong>公募回次によって異なります</strong>。最終的な判断は、第17回の公募要領・実績報告の手引きと、商工会議所／商工会の担当者の指示に従ってください。<br>
+  参考：<a href="https://r6.jizokukahojokin.info/jissekifaq17/">実績報告FAQ（第17回以降）</a>　/　<a href="https://www.r6.jizokukahojokin.info/jisseki.php">実績報告の手引き</a>　/　<a href="https://www.jizokuka-portal.info/">申請システム</a><br>
   <span class="mono">作成 2026-08-21</span>
 </footer>
 
@@ -460,23 +483,17 @@ TEL：【　　　　】／ Mail：【　　　　】</pre>
 <div class="toast" id="toast"></div>
 
 <script>
+const PHOTOS = [
+  ['①','照明LEDダウンライト',1],
+  ['②','折りたたみパーテーション',1],
+  ['③','靴箱＆スリッパ入れ',1],
+  ['④','会議用テーブル',2],
+  ['⑤','オープンシェルフ',1],
+  ['⑥','面談用イス',2],
+  ['⑦','面談用ラウンドテーブル',2],
+];
+
 const EXPENSES = [
-  {no:'①', cat:'機械装置等費', name:'照明LEDダウンライト',
-   order:['発注書（控）＋<strong>注文請書</strong>','注文確認メール／通販の注文確認画面','設置工事を伴う場合は工事発注書'],
-   deliver:['<strong>納品書</strong> または <strong>検収書</strong>','設置後の現物写真（設置場所が分かる引き＋型番が分かる寄り）']},
-  {no:'②', cat:'機械装置等費', name:'折りたたみパーテーション購入',
-   order:['発注書（控）','注文確認メール・注文履歴画面'],
-   deliver:['<strong>納品書</strong> または <strong>検収書</strong>','納品現物の写真（店舗内に設置・保管された状態）']},
-  {no:'③', cat:'機械装置等費', name:'システムで全文を確認して記入', unknown:true,
-   order:['発注書（控）＋注文請書'], deliver:['納品書 または 検収書','現物写真']},
-  {no:'④', cat:'（要確認）', name:'修正依頼の全文で確定させてください', unknown:true,
-   order:['発注書（控）＋注文請書'], deliver:['納品書 または 検収書']},
-  {no:'⑤', cat:'（要確認）', name:'修正依頼の全文で確定させてください', unknown:true,
-   order:['発注書（控）＋注文請書'], deliver:['納品書 または 検収書']},
-  {no:'⑥', cat:'（要確認）', name:'修正依頼の全文で確定させてください', unknown:true,
-   order:['発注書（控）＋注文請書'], deliver:['納品書 または 検収書']},
-  {no:'⑦', cat:'（要確認）', name:'修正依頼の全文で確定させてください', unknown:true,
-   order:['発注書（控）＋注文請書'], deliver:['納品書 または 検収書']},
   {no:'⑧', cat:'広報費', name:'看板制作・設置工事',
    order:['<strong>工事請負契約書</strong>（制作＋設置工事なので契約書が望ましい）','または 発注書（控）＋注文請書'],
    deliver:['<strong>工事完了報告書／引渡書＋検収書</strong>','施工前・施工中・施工後の写真','看板デザインの校了データ']},
@@ -495,30 +512,43 @@ const EXPENSES = [
 ];
 
 const FINAL = [
-  '指摘された①〜⑫すべてに「発注・契約」「納品・検収」の証憑を添付した',
-  '各経費で 見積日 ≦ 発注日 ≦ 納品日 ≦ 請求日 ≦ 支払日 の順序になっている',
-  'すべての日付が交付決定日以降である',
-  '見積・発注・納品・請求・支払の金額が一致している',
-  '宛名が申請事業者名と一致している',
-  'PDFが鮮明で、日付・金額・社名・押印が切れていない',
-  'ファイル名を「経費番号＋区分＋内容」で統一した',
-  '商工会議所／商工会の担当者に事前確認してもらった',
-  '原本を自社で保管した（補助事業終了後5年間の保存義務）',
+  '【A】①〜⑦のすべての現物にラベルを貼った（複数台の品は台数分）',
+  '【A】1品目につき「全体写真」＋「表示のアップ」を撮った',
+  '【A】設置・使用している状態で撮影した（未開封・未使用ではない）',
+  '【A】拡大して「第17回持続化」の文字がはっきり読める',
+  '【B】⑧〜⑫すべてに「発注・契約」「納品・検収」の証憑を添付した',
+  '【B】見積日 ≦ 発注日 ≦ 納品日 ≦ 請求日 ≦ 支払日 の順序になっている',
+  '【B】すべての日付が交付決定日以降である',
+  '【B】見積・発注・納品・請求・支払の金額が一致している',
+  '【B】宛名が申請事業者名と一致している',
+  '【共通】PDF・写真が鮮明で、日付・金額・社名・押印・表示が読める',
+  '【共通】ファイル名を「経費番号＋区分＋内容」で統一した',
+  '【共通】商工会議所／商工会の担当者に事前確認してもらった',
+  '【共通】A・B両方そろえてから提出した',
+  '【共通】原本を自社で保管した（補助事業終了後5年間の保存義務）',
 ];
 
-const KEY = 'jzk_resubmit_v1';
+const KEY = 'jzk_resubmit_v2';
 let state = {};
 try { state = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { state = {}; }
 function persist(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
 
-const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
 
-// expense cards
+// track A photo checklist
+document.getElementById('photoList').innerHTML = PHOTOS.map(([no, name, qty]) => {
+  const unit = qty > 1 ? `（${qty}点すべて）` : '';
+  return `
+    <label class="chk"><input type="checkbox" data-k="ph_${no}_l"><span><strong>${no} ${esc(name)}</strong>${unit}　ラベルを貼った</span></label>
+    <label class="chk"><input type="checkbox" data-k="ph_${no}_p"><span>${no}　全体写真＋表示のアップを撮った</span></label>`;
+}).join('') + `<label class="chk"><input type="checkbox" data-k="ph_pdf"><span><strong>経費番号ごとにPDFにまとめてアップロードした</strong></span></label>`;
+
+// track B expense cards
 document.getElementById('expGrid').innerHTML = EXPENSES.map(e => `
-  <details class="exp${e.unknown ? ' unknown' : ''}">
+  <details class="exp">
     <summary>
       <span class="badge">${e.no}</span>
-      <span class="exp-name">${e.name}<em>${e.cat}</em></span>
+      <span class="exp-name">${esc(e.name)}<em>${esc(e.cat)}</em></span>
       <span class="chev">▼</span>
     </summary>
     <div class="exp-body">
@@ -569,13 +599,12 @@ function toast(msg){
 
 document.querySelectorAll('.copy').forEach(btn => {
   btn.addEventListener('click', async () => {
-    const text = document.getElementById(btn.dataset.t).textContent;
+    const el = document.getElementById(btn.dataset.t);
     try {
-      await navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(el.textContent);
       toast('コピーしました');
     } catch (e) {
-      const r = document.createRange();
-      r.selectNodeContents(document.getElementById(btn.dataset.t));
+      const r = document.createRange(); r.selectNodeContents(el);
       const s = getSelection(); s.removeAllRanges(); s.addRange(r);
       toast('選択しました。長押しでコピーしてください');
     }

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第17回持続化 表示ラベル 印刷シート</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
+<style>
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:#EEF1F4; color:#151E28;
+    font-family:'Noto Sans JP',system-ui,sans-serif; font-size:15px; line-height:1.8;
+  }
+  .panel{max-width:820px; margin:0 auto; padding:28px 20px 8px}
+  h1{font-size:22px; font-weight:700; margin:0 0 6px}
+  .lead{color:#4A5763; font-size:14px; margin:0 0 20px}
+  .box{background:#fff; border:1px solid #DDE3E9; border-radius:10px; padding:18px 20px; margin-bottom:14px}
+  .box h2{font-size:14px; margin:0 0 12px; font-weight:700}
+  .fields{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px}
+  label.f{display:block; font-size:12px; color:#4A5763; font-weight:500}
+  label.f input{
+    width:100%; margin-top:4px; padding:8px 10px; font:inherit; font-size:14px;
+    border:1px solid #C9D2DA; border-radius:7px; background:#fff; color:#151E28;
+  }
+  input:focus{outline:2px solid #1F4E79; outline-offset:1px; border-color:#1F4E79}
+  table.items{width:100%; border-collapse:collapse; font-size:13.5px}
+  table.items th{text-align:left; font-size:11.5px; color:#7C8894; font-weight:700; padding:0 8px 6px 0}
+  table.items td{padding:4px 8px 4px 0; border-bottom:1px solid #EDF1F4}
+  table.items tr:last-child td{border-bottom:0}
+  table.items input[type=text]{width:100%; padding:6px 9px; font:inherit; font-size:13.5px; border:1px solid #C9D2DA; border-radius:6px}
+  table.items input[type=number]{width:64px; padding:6px 8px; font:inherit; font-size:13.5px; border:1px solid #C9D2DA; border-radius:6px; text-align:center}
+  .no{font-family:ui-monospace,monospace; color:#1F4E79; font-weight:700; white-space:nowrap}
+  .actions{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:4px 0 22px}
+  button{
+    font:inherit; font-size:14px; font-weight:700; padding:10px 22px; border-radius:100px;
+    border:0; background:#1F4E79; color:#fff; cursor:pointer;
+  }
+  button.ghost{background:#fff; color:#1F4E79; border:1px solid #C9D2DA; font-weight:500}
+  button:focus-visible{outline:2px solid #C33A2C; outline-offset:2px}
+  .count{font-size:13px; color:#4A5763}
+  .tips{font-size:13px; color:#4A5763; background:#FBECE9; border:1px solid #EFC9C2; border-radius:10px; padding:14px 18px; margin-bottom:20px}
+  .tips b{color:#C33A2C}
+  .tips ul{margin:8px 0 0; padding-left:20px}
+
+  /* ── sheet ── */
+  .sheet{
+    width:210mm; min-height:297mm; margin:0 auto 20px; padding:12mm 10mm;
+    background:#fff; box-shadow:0 6px 30px -18px rgba(0,0,0,.4);
+    display:grid; grid-template-columns:1fr 1fr; grid-auto-rows:42mm;
+    gap:4mm 6mm; align-content:start;
+  }
+  .label{
+    border:1px dashed #B9C3CC; border-radius:2mm; padding:4mm 5mm;
+    display:flex; flex-direction:column; justify-content:center; overflow:hidden;
+  }
+  .label .main{font-size:16pt; font-weight:900; letter-spacing:.04em; line-height:1.25}
+  .label .sub{font-size:7pt; color:#333; margin-top:1mm; line-height:1.5}
+  .label .row{font-size:8pt; margin-top:1.5mm; line-height:1.6; display:flex; gap:3mm; flex-wrap:wrap}
+  .label .row span{white-space:nowrap}
+  .label .item{font-size:9pt; font-weight:700; margin-top:1mm}
+  .empty{padding:60px 20px; text-align:center; color:#7C8894; font-size:14px}
+
+  @media print{
+    body{background:#fff}
+    .panel,.actions,.tips,.no-print{display:none !important}
+    .sheet{width:auto; min-height:auto; margin:0; padding:0; box-shadow:none; gap:4mm 6mm}
+    .label{border:1px dashed #999; break-inside:avoid}
+    @page{size:A4; margin:12mm 10mm}
+  }
+</style>
+</head>
+<body>
+
+<div class="panel">
+  <h1>「第17回持続化」表示ラベル 印刷シート</h1>
+  <p class="lead">事務局から「取得物に『第17回持続化』等の表示があることを確認できませんでした」と指摘された、機械装置等費①〜⑦のためのラベルです。事業者名と取得年月日を入れ、必要枚数を指定して印刷してください。</p>
+
+  <div class="tips">
+    <b>印刷する前に</b>
+    <ul>
+      <li>普通紙に印刷して切り取り、両面テープや透明テープで貼っても構いません。ラベルシール（A-one 12面相当・86.4×42.3mm）にもおおむね対応しますが、必ず試し刷りで位置を確認してください。</li>
+      <li><b>購入した商品すべて</b>に表示が必要です。テーブル2台なら2枚、イス2脚なら2枚貼ってください。</li>
+      <li>ブラウザの印刷設定で「拡大縮小：なし（100%）」「背景のグラフィック：オン」にしてください。</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h2>共通項目</h2>
+    <div class="fields">
+      <label class="f">事業者名（申請時の正式名称）
+        <input type="text" id="biz" placeholder="例：MOMOジム">
+      </label>
+      <label class="f">取得年月日
+        <input type="text" id="acq" placeholder="例：2026年7月15日">
+      </label>
+      <label class="f">公募回（表示の中心になる文言）
+        <input type="text" id="round" value="第17回持続化">
+      </label>
+    </div>
+  </div>
+
+  <div class="box">
+    <h2>ラベルを作る品目と枚数</h2>
+    <table class="items">
+      <thead><tr><th style="width:34px">No</th><th>品目</th><th style="width:80px">枚数</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="panel actions">
+  <button onclick="window.print()">印刷する</button>
+  <button class="ghost" onclick="render()">プレビューを更新</button>
+  <span class="count" id="count"></span>
+</div>
+
+<div id="sheets"></div>
+
+<script>
+const ITEMS = [
+  ['①','照明LEDダウンライト',1],
+  ['②','折りたたみパーテーション',1],
+  ['③','靴箱＆スリッパ入れ',1],
+  ['④','会議用テーブル',2],
+  ['⑤','オープンシェルフ',1],
+  ['⑥','面談用イス',2],
+  ['⑦','面談用ラウンドテーブル',2],
+];
+
+const KEY = 'jzk_label_v1';
+let saved = {};
+try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
+
+document.getElementById('rows').innerHTML = ITEMS.map(([no, name, qty], i) => `
+  <tr>
+    <td class="no">${no}</td>
+    <td><input type="text" data-n="${i}" value="${saved['n' + i] || name}"></td>
+    <td><input type="number" min="0" max="40" data-q="${i}" value="${saved['q' + i] ?? qty}"></td>
+  </tr>`).join('');
+
+if (saved.biz) document.getElementById('biz').value = saved.biz;
+if (saved.acq) document.getElementById('acq').value = saved.acq;
+if (saved.round) document.getElementById('round').value = saved.round;
+
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function persist(d){ try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (e) {} }
+
+function render(){
+  const biz = document.getElementById('biz').value.trim();
+  const acq = document.getElementById('acq').value.trim();
+  const round = document.getElementById('round').value.trim() || '第17回持続化';
+
+  const store = { biz, acq, round };
+  const labels = [];
+  ITEMS.forEach(([no], i) => {
+    const name = document.querySelector(`input[data-n="${i}"]`).value.trim();
+    const qty = parseInt(document.querySelector(`input[data-q="${i}"]`).value, 10) || 0;
+    store['n' + i] = name; store['q' + i] = qty;
+    for (let k = 1; k <= qty; k++) {
+      labels.push({ no, name, seq: qty > 1 ? `（${k}/${qty}）` : '' });
+    }
+  });
+  persist(store);
+
+  document.getElementById('count').textContent = `ラベル ${labels.length} 枚 / ${Math.ceil(labels.length / 12) || 0} ページ`;
+
+  const cell = L => `
+    <div class="label">
+      <div class="main">${esc(round)}</div>
+      <div class="sub">小規模事業者持続化補助金により取得した財産です</div>
+      <div class="item">${esc(L.no)} ${esc(L.name)}${esc(L.seq)}</div>
+      <div class="row">
+        <span>事業者：${esc(biz) || '＿＿＿＿＿＿＿'}</span>
+        <span>取得日：${esc(acq) || '＿＿＿＿＿＿'}</span>
+      </div>
+    </div>`;
+
+  const out = [];
+  if (!labels.length) {
+    out.push('<div class="panel empty">枚数を1以上にすると、ここにラベルが表示されます。</div>');
+  } else {
+    for (let p = 0; p < labels.length; p += 12) {
+      out.push('<div class="sheet">' + labels.slice(p, p + 12).map(cell).join('') + '</div>');
+    }
+  }
+  document.getElementById('sheets').innerHTML = out.join('');
+}
+
+document.addEventListener('input', e => { if (e.target.matches('input')) render(); });
+render();
+</script>
+</body>
+</html>
