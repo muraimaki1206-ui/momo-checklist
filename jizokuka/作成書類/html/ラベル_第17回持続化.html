@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><title>第17回持続化 表示ラベル</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'IPAPGothic','IPAGothic',sans-serif;color:#000}
+.sheet{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:42mm;gap:4mm 6mm;page-break-after:always}
+.sheet:last-child{page-break-after:auto}
+.label{border:1px dashed #888;border-radius:2mm;padding:4mm 5mm;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.main{font-size:17pt;font-weight:bold;letter-spacing:.06em;line-height:1.2}
+.sub{font-size:7pt;color:#333;margin-top:1.2mm}
+.item{font-size:9.5pt;font-weight:bold;margin-top:1.8mm}
+.biz{font-size:8pt;margin-top:1.5mm}
+.date{font-size:7.5pt;color:#333;margin-top:1mm}
+@page{size:A4;margin:12mm 10mm}
+</style></head><body>
+<script>
+const ITEMS=[["①","照明LEDダウンライト",2],["②","折りたたみパーテーション",1],["③","靴箱＆スリッパ入れ",1],
+["④","会議用テーブル",2],["⑤","オープンシェルフ",1],["⑥","面談用イス",2],["⑦","面談用ラウンドテーブル",2]];
+const BIZ="ストレス解放ジムＭｏＭｏ";
+let cells=[];
+ITEMS.forEach(([no,name,q])=>{for(let k=1;k<=q;k++)cells.push({no,name,seq:q>1?`（${k}/${q}）`:""});});
+while(cells.length%12)cells.push(null);
+for(let i=0;i<12;i++)cells.push({no:"",name:"",seq:"",spare:true});
+let html="",n=0;
+for(let p=0;p<cells.length;p+=12){
+  html+='<div class="sheet">';
+  cells.slice(p,p+12).forEach(c=>{
+    if(!c){html+='<div class="label"></div>';return;}
+    html+=`<div class="label"><div class="main">第17回持続化</div>
+      <div class="sub">小規模事業者持続化補助金により取得した財産です</div>
+      <div class="item">${c.spare?"＿＿＿＿＿＿＿＿＿＿＿":c.no+" "+c.name+c.seq}</div>
+      <div class="biz">事業者：${BIZ}</div>
+      <div class="date">取得年月日：2026年＿＿月＿＿日</div></div>`;
+  });
+  html+="</div>";
+}
+document.write(html);
+</script>
+</body></html>
