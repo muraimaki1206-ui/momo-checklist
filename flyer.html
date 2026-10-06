@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>モモジム 体力測定会チラシ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #C46B84;
+    --rose-pale: #FBE6EA;
+    --green: #6B8068;
+    --green-pale: #EEF1EC;
+    --bg: #FAF6F3;
+    --text: #3A2E2E;
+    --sub: #8A7B7B;
+  }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #ddd; font-family: 'Noto Sans JP', sans-serif; color: var(--text); }
+  .page {
+    width: 210mm; min-height: 297mm; margin: 0 auto; padding: 12mm 11mm 9mm;
+    background: var(--bg);
+  }
+  @media print { body { background: none; } }
+
+  .brand { text-align: center; letter-spacing: .6em; font-size: 11px; font-weight: 700; color: var(--green); }
+  h1 { text-align: center; margin-top: 8px; font-family: 'Noto Serif JP', serif; font-weight: 900; font-size: 44px; }
+  h1 small { font-size: 28px; margin-left: 8px; }
+  .lead { text-align: center; color: var(--sub); font-size: 15px; margin-top: 8px; }
+  .start { display: block; width: max-content; margin: 14px auto 0; background: var(--rose); color: #fff;
+    font-weight: 700; font-size: 19px; padding: 9px 46px; border-radius: 40px; }
+
+  h2 { font-size: 20px; margin: 22px 0 10px; padding-left: 12px; border-left: 5px solid var(--rose); line-height: 1.1; }
+  h2 span { font-size: 12px; font-weight: 400; color: var(--sub); margin-left: 10px; }
+
+  .four { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .four div { background: #fff; border-radius: 12px; padding: 12px 6px 10px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
+  .four svg { width: 54px; height: 54px; }
+  .four b { display: block; margin-top: 6px; font-size: 15px; }
+  .four i { font-style: normal; font-size: 10.5px; color: var(--sub); }
+
+  .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .flow div { background: var(--green-pale); border-radius: 10px; padding: 8px 4px; text-align: center; position: relative; }
+  .flow div.first { background: var(--rose-pale); }
+  .flow div:not(:last-child)::after { content: '›'; position: absolute; right: -11px; top: 50%; transform: translateY(-50%); color: #d8b4be; }
+  .flow small { display: block; font-size: 11px; letter-spacing: .08em; color: var(--green); font-weight: 500; }
+  .flow div.first small { color: var(--rose); }
+  .flow b { font-size: 15px; }
+  .flow em { display: block; font-style: normal; font-size: 10.5px; color: var(--sub); margin-top: 1px; }
+
+  .weeks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+  .card { background: #fff; border-radius: 14px; padding: 14px 14px 12px; }
+  .card h3 { display: flex; align-items: center; gap: 8px; font-size: 17px; }
+  .num { width: 28px; height: 28px; border-radius: 50%; background: var(--rose); color: #fff; font-size: 14px; display: grid; place-items: center; }
+  .tag { color: var(--rose); font-size: 11.5px; font-weight: 700; margin: 8px 0 6px; }
+  .card ul { list-style: none; font-size: 11.5px; line-height: 1.65; }
+  .card li { padding-left: 13px; position: relative; margin-bottom: 4px; }
+  .card li::before { content: ''; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: #E9B8C4; }
+
+  .support { margin-top: 14px; background: var(--rose-pale); border-radius: 14px; padding: 14px 18px;
+    display: grid; grid-template-columns: 1fr 1.2fr 1.2fr 1.2fr; align-items: center; gap: 10px; font-size: 12px; }
+  .support .t { color: var(--rose); font-weight: 900; font-size: 15px; line-height: 1.4; }
+  .support b { display: block; font-size: 14px; }
+  .sheet { margin-top: 14px; border: 1.5px dashed #E6B9C5; border-radius: 14px; padding: 14px 20px; background: #fff; }
+  .sheet b { font-size: 15px; }
+  .sheet p { font-size: 12px; line-height: 1.8; margin-top: 4px; }
+  footer { margin-top: 14px; border-top: 1px solid #e3dbd6; padding-top: 10px; display: flex; justify-content: space-between; align-items: flex-end; font-size: 11px; color: var(--sub); line-height: 1.8; }
+  footer strong { color: var(--green); letter-spacing: .12em; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="brand">MOMO GYM</div>
+  <h1>モモジム<small>体力測定会</small></h1>
+  <p class="lead">測って、動かして、もう一度測る。9週間で、体は変わります。</p>
+  <span class="start">2026年10月25日（日）スタート</span>
+
+  <h2>測るのは、この4つ<span>どれも1分かかりません</span></h2>
+  <div class="four">
+    <div>
+      <svg viewBox="0 0 64 64" fill="none" stroke="#C46B84" stroke-width="3" stroke-linecap="round"><rect x="8" y="24" width="26" height="16" rx="8" fill="#F6CBD5"/><rect x="38" y="14" width="8" height="36" rx="4" stroke="#6B8068"/><path d="M50 20l4-4M52 32h6M50 44l4 4"/></svg>
+      <b>握力</b><i>全身の筋力のめやす</i>
+    </div>
+    <div>
+      <svg viewBox="0 0 64 64" fill="none" stroke="#C46B84" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10v44h48" stroke="#DDD5CC"/><path d="M14 46h24l8-12" /><circle cx="42" cy="28" r="5" fill="#F6CBD5"/><rect x="42" y="38" width="12" height="8" rx="2" stroke="#6B8068"/></svg>
+      <b>長座体前屈</b><i>腰ともも裏の柔らかさ</i>
+    </div>
+    <div>
+      <svg viewBox="0 0 64 64" fill="none" stroke="#C46B84" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="30" cy="12" r="5" fill="#F6CBD5"/><path d="M30 18v16M30 24l-12 6M30 24l14 6M30 34l-6 16M30 34l10 4-4 12"/><path d="M14 54h28" stroke="#DDD5CC"/></svg>
+      <b>片足立ち</b><i>バランス力と脚の力</i>
+    </div>
+    <div>
+      <svg viewBox="0 0 64 64" fill="none" stroke="#C46B84" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="14" r="5" fill="#F6CBD5"/><path d="M20 20l2 14-6 18M22 34l8 16M20 24l12 4"/><path d="M42 30v24h12V30M38 54h20" stroke="#DDD5CC"/><path d="M34 12l8-6M42 6v8"/></svg>
+      <b>立ち座り 30秒</b><i>太ももとお尻の力</i>
+    </div>
+  </div>
+
+  <h2>9週間の流れ</h2>
+  <div class="flow">
+    <div class="first"><small>10/25（日）</small><b>体力測定会</b><em>＆お披露目会</em></div>
+    <div><small>1〜3週目</small><b>測定ウィーク</b><em>10/26（月）〜11/15（日）</em></div>
+    <div><small>4〜6週目</small><b>強化ウィーク</b><em>11/16（月）〜12/6（日）</em></div>
+    <div><small>7〜9週目</small><b>再測定ウィーク</b><em>12/7（月）〜12/27（日）</em></div>
+  </div>
+
+  <div class="weeks">
+    <div class="card">
+      <h3><span class="num">1</span>測定ウィーク</h3>
+      <div class="tag">3週間 ／ 今の自分を知る</div>
+      <ul>
+        <li><b>握力・長座体前屈</b><br>レッスンの前や合間に、ご自分のタイミングで測ります</li>
+        <li><b>立ち座り・片足立ち</b><br>レッスンのはじめに、みんなで30秒ずつ</li>
+        <li>数字はその場で記録シートに書き込みます</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="num">2</span>強化ウィーク</h3>
+      <div class="tag">3週間 ／ みんなで動かす</div>
+      <ul>
+        <li>レッスンに、4つの力が伸びるメニューを取り入れます</li>
+        <li>おうち用の<b>動画</b>をLINEでお届け</li>
+        <li>期間限定の<b>オープンチャット</b>で、みんなの様子を見ながら続けられます</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="num">3</span>再測定ウィーク</h3>
+      <div class="tag">3週間 ／ 変化を見る</div>
+      <ul>
+        <li>1回目とまったく同じやり方で、もう一度測ります</li>
+        <li>記録シートの「前」と「後」を見比べます</li>
+        <li>年2回のペースで続けて、毎年の変化を追いかけます</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="support">
+    <div class="t">強化ウィークの<br>サポート</div>
+    <div><b>LINE</b>その日のひとこと</div>
+    <div><b>おうち動画</b>1本3分から</div>
+    <div><b>オープンチャット</b>期間限定で開設</div>
+  </div>
+
+  <div class="sheet">
+    <b>記録シートをお渡しします</b>
+    <p>3年分（年2回 × 6回）書き込めるシートです。測定ウィークと再測定ウィークの数字、強化ウィークの毎日のチェック欄がまとまっています。裏面には4つの項目の意味と、おうちでできるエクササイズ、年代別のめやすも載っています。</p>
+  </div>
+
+  <footer>
+    <div>数字は人と比べるためのものではありません。半年前・1年前の自分と比べるための、いちばん確かな目じるしです。<br>ご不明な点は、スタッフまでお気軽にどうぞ。</div>
+    <strong>MOMO GYM</strong>
+  </footer>
+</div>
+</body>
+</html>
