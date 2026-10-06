@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>モモジム 体力測定 記録カード</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --rose:#C46B84; --rose-pale:#F3DDE3; --rose-lt:#FBF1F4; --green:#6B8068; --green-pale:#EDF2EC; --line:#C9C2C2; --text:#2E2A2A; --sub:#7A7272; }
+  @page { size: A4 landscape; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background:#ddd; font-family:'Noto Sans JP',sans-serif; color:var(--text); }
+  .page { width:297mm; height:210mm; margin:0 auto 8mm; padding:10mm 14mm; background:#fff; page-break-after:always; overflow:hidden; }
+  @media print { body{background:none;} .page{margin:0;} }
+  .brand { text-align:center; font-size:9px; letter-spacing:.4em; font-weight:700; color:var(--green); }
+  h1 { text-align:center; font-size:24px; font-weight:900; }
+  .sub { text-align:center; font-size:10.5px; color:var(--sub); margin-top:2px; }
+  .name { margin:14px 0 14px; font-weight:700; font-size:13px; display:flex; align-items:flex-end; gap:20px; }
+  .name span { width:240mm; max-width:120mm; border-bottom:1px solid #999; height:18px; }
+
+  table { border-collapse:collapse; width:100%; table-layout:fixed; }
+  th, td { border:1px solid var(--line); text-align:center; font-size:11px; }
+  th { background:var(--rose-pale); font-weight:700; padding:4px 2px; }
+  .g { background:var(--green-pale); color:var(--green); font-size:10px; }
+  .date { background:var(--rose-lt); color:var(--rose); }
+  td.lbl { text-align:left; font-weight:700; padding-left:8px; font-size:12px; }
+  td.lr { background:var(--rose-lt); color:var(--rose); font-size:10px; font-weight:700; width:9mm; }
+  .m td { height:9mm; }
+  .m tr.half td { height:6.5mm; }
+  /* 握力: 右・左の2段 */
+  .m tr.half.top td { border-bottom:1px solid #ddd; }
+  .m tr.half.bot td { border-top:1px solid var(--line); }
+
+  h2 { font-size:13.5px; color:var(--rose); margin:16px 0 3px; }
+  .ex { font-size:10.5px; color:var(--sub); margin-bottom:6px; }
+  .ch th { font-size:10px; padding:3px 0; }
+  .ch th.first { font-size:11px; }
+  .ch td { height:6mm; }
+  .ch td.lbl { text-align:center; padding:0; font-size:11px; }
+  .note { margin-top:8px; font-size:10px; color:var(--sub); }
+
+  .p2 h1 { font-size:21px; }
+  .p2 .sub { margin-bottom:10px; }
+  .t2 th { font-size:11.5px; }
+  .t2 td { font-size:10.5px; line-height:1.55; padding:5px 7px; text-align:left; }
+  .t2 td.k { text-align:center; color:var(--rose); font-weight:700; font-size:13.5px; }
+  .t3 td { text-align:center; font-size:11.5px; padding:5px 0; }
+  .t3 td.k { font-weight:700; }
+  .t3 tr:nth-child(even) td { background:#FAFAF8; }
+  .t3 th { background:var(--green-pale); color:var(--green); }
+  .foot { font-size:9.5px; color:var(--sub); line-height:1.8; margin-top:8px; }
+  .logo { text-align:right; font-weight:700; color:var(--green); letter-spacing:.08em; font-size:11px; margin-top:8px; }
+</style>
+</head>
+<body>
+
+<!-- ───── 1ページ目：記録カード ───── -->
+<div class="page">
+  <div class="brand">MOMO GYM</div>
+  <h1>体力測定 記録カード</h1>
+  <div class="sub">年2回（春・秋）測定 ／ 3年分</div>
+
+  <div class="name">お名前 <span></span></div>
+
+  <table class="m">
+    <colgroup><col style="width:36mm"><col style="width:9mm">
+      <col span="12"></colgroup>
+    <tr>
+      <th colspan="2">測定項目</th>
+      <th colspan="2">第1回</th><th colspan="2">第2回</th><th colspan="2">第3回</th>
+      <th colspan="2">第4回</th><th colspan="2">第5回</th><th colspan="2">第6回</th>
+    </tr>
+    <tr>
+      <td colspan="2" class="date" style="font-weight:700;font-size:11px;height:8mm;">実 施 日</td>
+      <td colspan="2">／</td><td colspan="2">／</td><td colspan="2">／</td>
+      <td colspan="2">／</td><td colspan="2">／</td><td colspan="2">／</td>
+    </tr>
+    <tr class="ba">
+      <td colspan="2" style="height:6.5mm"></td>
+      <td class="g">前</td><td class="g">後</td><td class="g">前</td><td class="g">後</td>
+      <td class="g">前</td><td class="g">後</td><td class="g">前</td><td class="g">後</td>
+      <td class="g">前</td><td class="g">後</td><td class="g">前</td><td class="g">後</td>
+    </tr>
+    <tr class="half top">
+      <td class="lbl" rowspan="2">握力（kg）</td><td class="lr">右</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr class="half bot">
+      <td class="lr">左</td>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr><td class="lbl" colspan="2">長座体前屈（cm）</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="lbl" colspan="2">片足立ち（秒）</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="lbl" colspan="2">立ち座り 30 秒（回）</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table>
+
+  <h2>3週間チャレンジ　毎日できたらチェック（4つまとめて1日1セット）</h2>
+  <div class="ex">① グーパー運動 10回×3　② もも裏ストレッチ 左右30秒　③ 片足立ち 左右1分　④ イススクワット 10回×2</div>
+
+  <table class="ch" id="ch"></table>
+  <div class="note">※ やり方とねらいは うら面 をごらんください。</div>
+</div>
+
+<!-- ───── 2ページ目：説明 ───── -->
+<div class="page p2">
+  <h1>4つの測定と、おうちエクササイズ</h1>
+  <div class="sub">測るだけで終わらせず、「動かす → もう一度測る」で体は変わります。</div>
+
+  <table class="t2">
+    <colgroup><col style="width:34mm"><col style="width:70mm"><col style="width:76mm"><col></colgroup>
+    <tr><th>測定項目</th><th>なにがわかる?</th><th>続けるといいこと</th><th>おうちエクササイズ</th></tr>
+    <tr><td class="k">握力</td><td>全身の筋力のめやす。体じゅうの筋肉の元気さが、手の力にあらわれます。</td><td>買い物袋やビンのフタが楽になる／体の支えが効いて転びにくくなる</td><td>グーパー運動：手を大きく開いて、ギュッと握る。10回×3セット。タオルを握るのでもOK。</td></tr>
+    <tr><td class="k">長座体前屈</td><td>腰からもも裏の柔らかさ。姿勢のクセや、動きにくさが見えます。</td><td>腰が軽くなる／靴下がはきやすい／動きがスムーズでケガをしにくい</td><td>もも裏ストレッチ：脚を前に伸ばして座り、背すじを伸ばしたまま上体を倒す。左右30秒ずつ。</td></tr>
+    <tr><td class="k">片足立ち</td><td>バランス力と、脚を支える筋力。ふらつきの小さなサインが出ます。</td><td>つまずきにくい／階段がこわくない／骨にもよい刺激が入る</td><td>片足立ち：左右1分ずつ、1日3回。はじめは壁やイスにつかまってOK。</td></tr>
+    <tr><td class="k">立ち座り 30秒</td><td>太ももとお尻の筋力。歩く・立ち上がるの土台になる力です。</td><td>立ち上がりが楽になる／歩くのが速くなる／長く歩いても疲れにくい</td><td>イススクワット：イスに軽くお尻をつけて、すぐ立つ。10回×2セット。</td></tr>
+  </table>
+
+  <h2 style="margin-top:18px">女性の年代別 めやす</h2>
+  <table class="t3">
+    <tr><th>年代</th><th>握力</th><th>長座体前屈</th><th>片足立ち</th><th>立ち座り 30秒</th></tr>
+    <tr><td class="k">30代</td><td>約 28 kg</td><td>約 42 cm</td><td>約 55 秒</td><td>24〜28 回</td></tr>
+    <tr><td class="k">40代</td><td>約 28 kg</td><td>約 41 cm</td><td>約 40 秒</td><td>23〜27 回</td></tr>
+    <tr><td class="k">50代</td><td>約 27 kg</td><td>約 39 cm</td><td>約 30 秒</td><td>20〜24 回</td></tr>
+    <tr><td class="k">60代</td><td>約 26 kg</td><td>約 35 cm</td><td>約 20 秒</td><td>17〜23 回</td></tr>
+    <tr><td class="k">70代</td><td>約 23 kg</td><td>約 38 cm ※</td><td>20 秒以上を目標</td><td>13〜19 回</td></tr>
+  </table>
+  <div class="foot">※ 握力・長座体前屈はスポーツ庁「体力・運動能力調査」の女性平均、立ち座りは中谷ほか（2003）CS-30 標準値の「ふつう」の範囲、片足立ちは一般に使われている年代別のめやすです。<br>※ 70代の長座体前屈は、64歳以下とは調査の対象者がちがうため参考値です。数字は目標ではなく「今の位置」を知るためのもの。前回の自分と比べるのがいちばんの指標です。</div>
+  <div class="logo">MOMO GYM</div>
+</div>
+
+<script>
+  // 3週間チャレンジ表（21日 × 6回）
+  const t = document.getElementById('ch');
+  let h = '<tr><th class="first">3週間チャレンジ</th>';
+  for (let d = 1; d <= 21; d++) h += `<th class="g">${d}</th>`;
+  h += '</tr>';
+  for (let r = 1; r <= 6; r++) h += `<tr><td class="lbl">第${r}回</td>${'<td></td>'.repeat(21)}</tr>`;
+  t.innerHTML = '<colgroup><col style="width:30mm"><col span="21"></colgroup>' + h;
+</script>
+</body>
+</html>
