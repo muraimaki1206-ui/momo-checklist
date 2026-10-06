@@ -107,12 +107,14 @@ const art = {
   sitBase(shoulder,headp,hdx,boxX,extra=''){
     return `<line x1="34" y1="8" x2="34" y2="134" stroke="${GRAY}" stroke-width="6" stroke-linecap="round"/>`+T(18,60,'壁',11,DK)+
       `<line x1="8" y1="134" x2="252" y2="134" stroke="#D9D1C9" stroke-width="3" stroke-linecap="round"/>`+
-      `<rect x="60" y="128" width="185" height="6" rx="2" fill="#E4DFDA" stroke="${DK}" stroke-width=".8"/>`+
+      `<rect x="60" y="128" width="185" height="6" rx="2" fill="#E2C48E" stroke="#B08B4F" stroke-width=".8"/>`+
       [0,1,2,3,4,5,6,7,8,9].map(i=>`<line x1="${70+i*18}" y1="128" x2="${70+i*18}" y2="${i%2?131:133}" stroke="${DK}" stroke-width=".8"/>`).join('')+
       L([[50,120],[170,120]],11,LEG)+                               // 脚
-      `<rect x="${boxX}" y="94" width="30" height="34" rx="3" fill="#fff" stroke="${TOP}" stroke-width="2"/>`+T(boxX+15,115,'箱',11,TOP)+
+      L([[boxX+3,100],[boxX+26,128]],5,'#D9B87C')+                  // 板の支え（斜め）
+      `<rect x="${boxX}" y="92" width="7" height="38" rx="2" fill="#E2C48E" stroke="#B08B4F" stroke-width="1.5"/>`+   // 押す板
+      `<rect x="${boxX+12}" y="116" width="6" height="4" fill="#fff" stroke="#B08B4F" stroke-width=".6" opacity="0"/>`+
       L([[50,120],shoulder],22,TOP)+                                // 体幹
-      L([shoulder,[boxX+6,96]],8,TOP)+hand(boxX+6,96)+head(...headp)+extra;
+      L([shoulder,[boxX+3,91]],8,TOP)+hand(boxX+3,91)+head(...headp)+extra;
   },
   get seat1(){ return svg(this.sitBase([50,58],[50,38],0,80)+
       T(130,40,'背中とお尻を',11,DK,'start')+T(130,54,'壁につける',11,DK,'start')+T(176,100,'ひざは',11,DK,'start')+T(176,113,'のばす',11,DK,'start')); },
@@ -164,11 +166,11 @@ const pages = [
    tool:'長座体前屈測定器（TOEI LIGHT）',
    steps:[
      ['準備の姿勢', art.seat1, '床に長座（脚をのばして座る）になり、<b>背中とお尻を壁につけます</b>。足はそろえ、ひざはのばします。'],
-     ['手を置く', art.seat2, '両手を肩幅にして、<b>手のひらを下</b>にして箱に置きます。背すじをのばしたら準備完了です。'],
-     ['ゆっくり前屈', art.seat3, '息をはきながら、<b>箱をまっすぐ前へ押し出す</b>ように、ゆっくり前屈します。限界のところで止めます。'],
+     ['手を置く', art.seat2, '両手を肩幅にして、<b>手のひらを下</b>にして、板の上の端に置きます。背すじをのばしたら準備完了です。'],
+     ['ゆっくり前屈', art.seat3, '息をはきながら、<b>板をまっすぐ前へ押し出す</b>ように、ゆっくり前屈します。限界のところで止めます。'],
      ['記録する', art.seatRecord, '止めたところの目盛りを読みます。<b>2回</b>測って、数字のいい方を記録カードに書き込みます。'],
    ],
-   ng:['ひざを曲げない（曲がったら測り直し）','反動をつけない。ゆっくり押す','途中で手を箱から離さない','腰やもも裏に痛みがあるときは無理をしない'],
+   ng:['ひざを曲げない（曲がったら測り直し）','反動をつけない。ゆっくり押す','途中で手を板から離さない','腰やもも裏に痛みがあるときは無理をしない'],
    rec:['2回測っていい方（cm）','小数点以下は切り捨て','前回と同じ測定器・同じ時間帯が◎'] },
  { title:'片足立ち', en:'ONE-LEG STAND', what:'バランス力と、脚を支える筋力。ふらつきの小さなサインが出ます。',
    tool:'ストップウォッチ（スマホのタイマー可）・近くの壁かイス',
