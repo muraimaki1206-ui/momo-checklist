@@ -7,19 +7,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --rose: #C46B84;
+    --rose: #A94566;
     --rose-pale: #FBE6EA;
-    --green: #6B8068;
+    --green: #3F5A3C;
     --green-pale: #EEF1EC;
     --bg: #FAF6F3;
-    --text: #3A2E2E;
-    --sub: #8A7B7B;
+    --text: #1E1717;
+    --sub: #4A3F3F;
   }
   @page { size: A4; margin: 0; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #ddd; font-family: 'Noto Sans JP', sans-serif; color: var(--text); }
+  body { background: #ddd; font-weight:700; font-family: 'Noto Sans JP', sans-serif; color: var(--text); }
   .page {
-    width: 210mm; min-height: 297mm; margin: 0 auto; padding: 12mm 11mm 9mm;
+    width: 210mm; min-height: 297mm; margin: 0 auto; padding: 10mm 11mm 8mm;
     background: var(--bg);
   }
   @media print { body { background: none; } }
@@ -27,46 +27,46 @@
   .brand { text-align: center; letter-spacing: .6em; font-size: 11px; font-weight: 700; color: var(--green); }
   h1 { text-align: center; margin-top: 8px; font-family: 'Noto Serif JP', serif; font-weight: 900; font-size: 44px; }
   h1 small { font-size: 28px; margin-left: 8px; }
-  .lead { text-align: center; color: var(--sub); font-size: 15px; margin-top: 8px; }
+  .lead { text-align: center; color: var(--sub); font-weight: 700; font-size: 15.5px; margin-top: 8px; }
   .start { display: block; width: max-content; margin: 14px auto 0; background: var(--rose); color: #fff;
     font-weight: 700; font-size: 19px; padding: 9px 46px; border-radius: 40px; }
 
   h2 { font-size: 20px; margin: 22px 0 10px; padding-left: 12px; border-left: 5px solid var(--rose); line-height: 1.1; }
-  h2 span { font-size: 12px; font-weight: 400; color: var(--sub); margin-left: 10px; }
+  h2 span { font-size: 13px; font-weight: 700; color: var(--sub); margin-left: 10px; }
 
   .four { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
   .four div { background: #fff; border-radius: 12px; padding: 12px 6px 10px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
   .four svg { width: 54px; height: 54px; }
   .four b { display: block; margin-top: 6px; font-size: 15px; }
-  .four i { font-style: normal; font-size: 10.5px; color: var(--sub); }
+  .four i { font-style: normal; font-weight: 700; font-size: 11.5px; color: var(--sub); }
 
   .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
   .flow div { background: var(--green-pale); border-radius: 10px; padding: 8px 4px; text-align: center; position: relative; }
   .flow div.first { background: var(--rose-pale); }
   .flow div:not(:last-child)::after { content: '›'; position: absolute; right: -11px; top: 50%; transform: translateY(-50%); color: #d8b4be; }
-  .flow small { display: block; font-size: 11px; letter-spacing: .08em; color: var(--green); font-weight: 500; }
+  .flow small { display: block; font-size: 12px; letter-spacing: .05em; color: var(--green); font-weight: 700; }
   .flow div.first small { color: var(--rose); }
   .flow b { font-size: 15px; }
-  .flow em { display: block; font-style: normal; font-size: 10.5px; color: var(--sub); margin-top: 1px; }
+  .flow em { display: block; font-style: normal; font-weight: 700; font-size: 11.5px; color: var(--sub); margin-top: 1px; }
 
   .weeks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
   .card { background: #fff; border-radius: 14px; padding: 14px 14px 12px; }
   .card h3 { display: flex; align-items: center; gap: 8px; font-size: 17px; }
   .num { width: 28px; height: 28px; border-radius: 50%; background: var(--rose); color: #fff; font-size: 14px; display: grid; place-items: center; }
-  .tag { color: var(--rose); font-size: 11.5px; font-weight: 700; margin: 8px 0 6px; }
-  .card ul { list-style: none; font-size: 11.5px; line-height: 1.65; }
+  .tag { color: var(--rose); font-size: 12.5px; font-weight: 700; margin: 8px 0 6px; }
+  .card ul { list-style: none; font-size: 12.5px; line-height: 1.6; font-weight:700; }
   .card li { padding-left: 13px; position: relative; margin-bottom: 4px; }
   .card li::before { content: ''; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: #E9B8C4; }
 
   .support { margin-top: 14px; background: var(--rose-pale); border-radius: 14px; padding: 14px 18px;
-    display: grid; grid-template-columns: 1fr 1.2fr 1.2fr 1.2fr; align-items: center; gap: 10px; font-size: 12px; }
+    display: grid; grid-template-columns: 1fr 1.2fr 1.2fr 1.2fr; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; }
   .support .t { color: var(--rose); font-weight: 900; font-size: 15px; line-height: 1.4; }
   .support b { display: block; font-size: 14px; }
   .sheet { margin-top: 14px; border: 1.5px dashed #E6B9C5; border-radius: 14px; padding: 14px 20px; background: #fff; }
   .sheet b { font-size: 15px; }
-  .sheet p { font-size: 12px; line-height: 1.8; margin-top: 4px; }
-  footer { margin-top: 14px; border-top: 1px solid #e3dbd6; padding-top: 10px; display: flex; justify-content: space-between; align-items: flex-end; font-size: 11px; color: var(--sub); line-height: 1.8; }
-  footer strong { color: var(--green); letter-spacing: .12em; font-size: 14px; }
+  .sheet p { font-size: 12.5px; line-height: 1.75; font-weight:700; margin-top: 4px; }
+  footer { margin-top: 14px; border-top: 1px solid #e3dbd6; padding-top: 10px; display: flex; justify-content: space-between; align-items: flex-end; font-size: 12px; font-weight: 700; color: var(--sub); line-height: 1.7; }
+  footer strong { color: var(--green); letter-spacing: .08em; font-size: 14px; white-space: nowrap; margin-left: 12px; }
 </style>
 </head>
 <body>
@@ -79,19 +79,19 @@
   <h2>測るのは、この4つ<span>どれも1分かかりません</span></h2>
   <div class="four">
     <div>
-      <svg viewBox="0 0 64 64" fill="none" stroke="#C46B84" stroke-width="3" stroke-linecap="round"><rect x="8" y="24" width="26" height="16" rx="8" fill="#F6CBD5"/><rect x="38" y="14" width="8" height="36" rx="4" stroke="#6B8068"/><path d="M50 20l4-4M52 32h6M50 44l4 4"/></svg>
+      <svg viewBox="0 0 64 64" fill="none" stroke="#A94566" stroke-width="3" stroke-linecap="round"><rect x="8" y="24" width="26" height="16" rx="8" fill="#F6CBD5"/><rect x="38" y="14" width="8" height="36" rx="4" stroke="#3F5A3C"/><path d="M50 20l4-4M52 32h6M50 44l4 4"/></svg>
       <b>握力</b><i>全身の筋力のめやす</i>
     </div>
     <div>
-      <svg viewBox="0 0 64 64" fill="none" stroke="#C46B84" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10v44h48" stroke="#DDD5CC"/><path d="M14 46h24l8-12" /><circle cx="42" cy="28" r="5" fill="#F6CBD5"/><rect x="42" y="38" width="12" height="8" rx="2" stroke="#6B8068"/></svg>
+      <svg viewBox="0 0 64 64" fill="none" stroke="#A94566" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10v44h48" stroke="#DDD5CC"/><path d="M14 46h24l8-12" /><circle cx="42" cy="28" r="5" fill="#F6CBD5"/><rect x="42" y="38" width="12" height="8" rx="2" stroke="#3F5A3C"/></svg>
       <b>長座体前屈</b><i>腰ともも裏の柔らかさ</i>
     </div>
     <div>
-      <svg viewBox="0 0 64 64" fill="none" stroke="#C46B84" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="30" cy="12" r="5" fill="#F6CBD5"/><path d="M30 18v16M30 24l-12 6M30 24l14 6M30 34l-6 16M30 34l10 4-4 12"/><path d="M14 54h28" stroke="#DDD5CC"/></svg>
+      <svg viewBox="0 0 64 64" fill="none" stroke="#A94566" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="30" cy="12" r="5" fill="#F6CBD5"/><path d="M30 18v16M30 24l-12 6M30 24l14 6M30 34l-6 16M30 34l10 4-4 12"/><path d="M14 54h28" stroke="#DDD5CC"/></svg>
       <b>片足立ち</b><i>バランス力と脚の力</i>
     </div>
     <div>
-      <svg viewBox="0 0 64 64" fill="none" stroke="#C46B84" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="14" r="5" fill="#F6CBD5"/><path d="M20 20l2 14-6 18M22 34l8 16M20 24l12 4"/><path d="M42 30v24h12V30M38 54h20" stroke="#DDD5CC"/><path d="M34 12l8-6M42 6v8"/></svg>
+      <svg viewBox="0 0 64 64" fill="none" stroke="#A94566" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="14" r="5" fill="#F6CBD5"/><path d="M20 20l2 14-6 18M22 34l8 16M20 24l12 4"/><path d="M42 30v24h12V30M38 54h20" stroke="#DDD5CC"/><path d="M34 12l8-6M42 6v8"/></svg>
       <b>立ち座り 30秒</b><i>太ももとお尻の力</i>
     </div>
   </div>

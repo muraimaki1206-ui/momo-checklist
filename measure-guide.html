@@ -6,10 +6,10 @@
 <title>モモジム 測定のしかた掲示</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
 <style>
-  :root { --rose:#C46B84; --rose-pale:#FBE6EA; --green:#6B8068; --green-pale:#EEF1EC; --bg:#FAF6F3; --text:#3A2E2E; --sub:#8A7B7B; }
+  :root { --rose:#A94566; --rose-pale:#FBE6EA; --green:#3F5A3C; --green-pale:#EEF1EC; --bg:#FAF6F3; --text:#1E1717; --sub:#4A3F3F; }
   @page { size: A4; margin: 0; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background:#ddd; font-family:'Noto Sans JP',sans-serif; color:var(--text); }
+  body { background:#ddd; font-weight:700; font-family:'Noto Sans JP',sans-serif; color:var(--text); }
   .page { width:210mm; height:297mm; margin:0 auto 8mm; padding:11mm 12mm 8mm; background:var(--bg); page-break-after:always; overflow:hidden; display:flex; flex-direction:column; }
   @media print { body{background:none;} .page{margin:0;} }
 
@@ -17,7 +17,7 @@
   .brand span:last-child { letter-spacing:.1em; color:var(--rose); }
   h1 { font-family:'Noto Serif JP',serif; font-weight:900; font-size:40px; margin-top:4px; line-height:1.2; }
   h1 small { font-family:'Noto Sans JP',sans-serif; font-size:17px; font-weight:700; color:var(--rose); margin-left:12px; }
-  .what { margin-top:4px; font-size:13px; color:var(--sub); }
+  .what { margin-top:4px; font-weight:700; font-size:14px; color:var(--sub); }
   .tool { font-size:14px !important; margin-top:9px; background:#fff; border-left:5px solid var(--green); border-radius:8px; padding:7px 12px; font-size:12.5px; }
   .tool b { color:var(--green); margin-right:8px; }
 
@@ -46,19 +46,19 @@
 
 <!-- 矢印マーカー -->
 <svg width="0" height="0" style="position:absolute"><defs>
-  <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#C46B84"/></marker>
+  <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#A94566"/></marker>
 </defs></svg>
 
 <div id="root"></div>
 
 <script>
 // ───────── 描画ヘルパー ─────────
-const SKIN='#F3CBB8', TOP='#C46B84', LEG='#6B8068', GRAY='#B9B1AB', DK='#6F6565';
+const SKIN='#F3CBB8', TOP='#A94566', LEG='#6B8068', GRAY='#B9B1AB', DK='#2A2323';
 const L=(pts,w,c)=>`<polyline points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
 const head=(x,y)=>`<circle cx="${x}" cy="${y}" r="10" fill="${SKIN}"/>`;
 const hand=(x,y)=>`<circle cx="${x}" cy="${y}" r="4.5" fill="${SKIN}"/>`;
 const T=(x,y,s,size=11,c=DK,a='middle',w=700)=>`<text x="${x}" y="${y}" font-size="${size}" fill="${c}" text-anchor="${a}" font-weight="${w}" font-family="Noto Sans JP,sans-serif">${s}</text>`;
-const arrow=(x1,y1,x2,y2,dash)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#C46B84" stroke-width="2.5" ${dash?'stroke-dasharray="4 3"':''} marker-end="url(#ar)"/>`;
+const arrow=(x1,y1,x2,y2,dash)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#A94566" stroke-width="2.5" ${dash?'stroke-dasharray="4 3"':''} marker-end="url(#ar)"/>`;
 const floor=(y=136)=>`<line x1="8" y1="${y}" x2="252" y2="${y}" stroke="#D9D1C9" stroke-width="3" stroke-linecap="round"/>`;
 const svg=inner=>`<svg viewBox="0 0 260 150">${inner}</svg>`;
 
@@ -120,7 +120,7 @@ const art = {
       T(130,40,'背中とお尻を',11,DK,'start')+T(130,54,'壁につける',11,DK,'start')+T(176,100,'ひざは',11,DK,'start')+T(176,113,'のばす',11,DK,'start')); },
   get seat2(){ return svg(this.sitBase([86,70],[96,52],0,112)+arrow(150,86,186,86)+T(182,72,'ゆっくり',11,TOP,'start')); },
   get seat3(){ return svg(this.sitBase([104,90],[121,82],0,162,
-      `<line x1="162" y1="30" x2="162" y2="92" stroke="#C46B84" stroke-width="2" stroke-dasharray="4 3"/>`)+
+      `<line x1="162" y1="30" x2="162" y2="92" stroke="#A94566" stroke-width="2" stroke-dasharray="4 3"/>`)+
       T(150,24,'ここで止めて',11,TOP,'end')+T(150,38,'目盛りを読む',11,TOP,'end')); },
   seatRecord: record([['長座体前屈','cm']],['2回行って、いい方を記入','（小数点以下は切り捨て）']),
 
