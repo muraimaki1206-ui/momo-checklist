@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>モモジム 測定のしかた掲示</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --rose:#C46B84; --rose-pale:#FBE6EA; --green:#6B8068; --green-pale:#EEF1EC; --bg:#FAF6F3; --text:#3A2E2E; --sub:#8A7B7B; }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background:#ddd; font-family:'Noto Sans JP',sans-serif; color:var(--text); }
+  .page { width:210mm; height:297mm; margin:0 auto 8mm; padding:11mm 12mm 8mm; background:var(--bg); page-break-after:always; overflow:hidden; display:flex; flex-direction:column; }
+  @media print { body{background:none;} .page{margin:0;} }
+
+  .brand { display:flex; justify-content:space-between; font-size:10px; letter-spacing:.35em; font-weight:700; color:var(--green); }
+  .brand span:last-child { letter-spacing:.1em; color:var(--rose); }
+  h1 { font-family:'Noto Serif JP',serif; font-weight:900; font-size:40px; margin-top:4px; line-height:1.2; }
+  h1 small { font-family:'Noto Sans JP',sans-serif; font-size:17px; font-weight:700; color:var(--rose); margin-left:12px; }
+  .what { margin-top:4px; font-size:13px; color:var(--sub); }
+  .tool { font-size:14px !important; margin-top:9px; background:#fff; border-left:5px solid var(--green); border-radius:8px; padding:7px 12px; font-size:12.5px; }
+  .tool b { color:var(--green); margin-right:8px; }
+
+  .steps { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+  .step { background:#fff; border-radius:14px; padding:9px 11px 9px; box-shadow:0 1px 4px rgba(0,0,0,.05); }
+  .step h3 { display:flex; align-items:center; gap:8px; font-size:17px; }
+  .num { flex:none; width:25px; height:25px; border-radius:50%; background:var(--rose); color:#fff; font-size:13px; display:grid; place-items:center; }
+  .step svg { width:100%; height:auto; display:block; margin:4px 0 2px; background:var(--green-pale); border-radius:10px; }
+  .step p { font-size:13.2px; line-height:1.65; min-height:3.3em; }
+  .step p b { color:var(--rose); }
+
+  .notes { margin-top:12px; display:grid; grid-template-columns:1.35fr 1fr; gap:10px; }
+  .box { border-radius:14px; padding:12px 16px; font-size:13.5px; line-height:1.7; }
+  .box.ng { background:var(--rose-pale); }
+  .box.rec { background:var(--green-pale); }
+  .box h4 { font-size:15px; margin-bottom:3px; }
+  .ng h4 { color:var(--rose); } .rec h4 { color:var(--green); }
+  .box ul { list-style:none; }
+  .box li { padding-left:13px; position:relative; margin-bottom:2px; }
+  .box li::before { content:''; position:absolute; left:0; top:.65em; width:6px; height:6px; border-radius:50%; background:currentColor; opacity:.55; }
+  .ng li::before { color:var(--rose); } .rec li::before { color:var(--green); }
+  footer { margin-top:auto; padding-top:6px; text-align:right; font-weight:700; color:var(--green); letter-spacing:.12em; font-size:12px; }
+</style>
+</head>
+<body>
+
+<!-- 矢印マーカー -->
+<svg width="0" height="0" style="position:absolute"><defs>
+  <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#C46B84"/></marker>
+</defs></svg>
+
+<div id="root"></div>
+
+<script>
+// ───────── 描画ヘルパー ─────────
+const SKIN='#F3CBB8', TOP='#C46B84', LEG='#6B8068', GRAY='#B9B1AB', DK='#6F6565';
+const L=(pts,w,c)=>`<polyline points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+const head=(x,y)=>`<circle cx="${x}" cy="${y}" r="10" fill="${SKIN}"/>`;
+const hand=(x,y)=>`<circle cx="${x}" cy="${y}" r="4.5" fill="${SKIN}"/>`;
+const T=(x,y,s,size=11,c=DK,a='middle',w=700)=>`<text x="${x}" y="${y}" font-size="${size}" fill="${c}" text-anchor="${a}" font-weight="${w}" font-family="Noto Sans JP,sans-serif">${s}</text>`;
+const arrow=(x1,y1,x2,y2,dash)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#C46B84" stroke-width="2.5" ${dash?'stroke-dasharray="4 3"':''} marker-end="url(#ar)"/>`;
+const floor=(y=136)=>`<line x1="8" y1="${y}" x2="252" y2="${y}" stroke="#D9D1C9" stroke-width="3" stroke-linecap="round"/>`;
+const svg=inner=>`<svg viewBox="0 0 260 150">${inner}</svg>`;
+
+// 正面で立つ人（opts: lArm, rArm, rLeg）
+function front({cx=130, lArm=[[-17,42],[-23,64],[-25,86]], rArm=[[17,42],[23,64],[25,86]], lLeg=[[-8,82],[-11,110],[-12,136]], rLeg=[[8,82],[11,110],[12,136]]}={}){
+  const P=a=>a.map(([x,y])=>[cx+x,y]);
+  return L(P(lLeg),11,LEG)+L(P(rLeg),11,LEG)+L([[cx,38],[cx,82]],24,TOP)+
+         L(P(lArm),8,TOP)+L(P(rArm),8,TOP)+head(cx,20)+
+         hand(cx+lArm[2][0],lArm[2][1])+hand(cx+rArm[2][0],rArm[2][1]);
+}
+
+// 記録カード風パネル
+function record(rows, tip){
+  const h=30+rows.length*34;
+  let s=`<rect x="20" y="8" width="220" height="${h}" rx="8" fill="#fff" stroke="${TOP}" stroke-width="2"/>`+
+        `<rect x="20" y="8" width="220" height="20" rx="8" fill="#F3DDE3"/><rect x="20" y="20" width="220" height="8" fill="#F3DDE3"/>`+
+        T(130,23,'記録カード',11,TOP);
+  rows.forEach((r,i)=>{ const y=36+i*34;
+    s+=T(36,y+20,r[0],13,DK,'start')+`<rect x="128" y="${y+3}" width="60" height="26" rx="4" fill="#fff" stroke="#BDB5B5"/>`+T(196,y+21,r[1],13,DK,'start');
+  });
+  const lines=[].concat(tip||[]);
+  lines.forEach((t,i)=>{ s+=T(130,h+26+i*14,t,11,TOP); });
+  return svg(s);
+}
+
+// ───────── イラスト ─────────
+const art = {
+  // 握力
+  gripDevice: svg(
+    `<rect x="95" y="68" width="14" height="66" rx="6" fill="${GRAY}"/>`+           // 握り棒
+    `<rect x="60" y="14" width="84" height="44" rx="14" fill="#E4DFDA"/>`+           // 本体
+    `<circle cx="102" cy="36" r="16" fill="#fff" stroke="${DK}" stroke-width="2"/><line x1="102" y1="36" x2="112" y2="28" stroke="${TOP}" stroke-width="2.5"/>`+
+    L([[34,88],[78,88],[78,128]],11,SKIN)+                                          // 人差し指（第2関節で約90°）
+    `<path d="M62 88 A16 16 0 0 1 78 104" fill="none" stroke="${TOP}" stroke-width="2" marker-end="url(#ar)"/>`+
+    T(30,112,'第2関節',11,TOP,'start')+T(150,100,'約90°',16,TOP,'start',900)+
+    arrow(147,92,112,92)+T(150,128,'幅を合わせる',10.5,DK,'start')),
+  gripStand: svg(floor()+front({rArm:[[17,42],[23,64],[25,86]]})+
+    `<rect x="150" y="82" width="9" height="26" rx="3" fill="#E4DFDA" stroke="${DK}"/><circle cx="154.5" cy="90" r="3" fill="#fff" stroke="${DK}"/>`+
+    T(12,62,'足は肩幅',11,DK,'start')+T(12,76,'くらい',11,DK,'start')+T(190,62,'メモリが',11,DK,'start')+T(190,76,'外向き',11,DK,'start')),
+  gripSqueeze: svg(floor()+front({rArm:[[17,42],[36,62],[44,84]]})+
+    `<rect x="164" y="76" width="9" height="26" rx="3" fill="#E4DFDA" stroke="${DK}"/><circle cx="168.5" cy="84" r="3" fill="#fff" stroke="${DK}"/>`+
+        T(12,64,'体にも服にも',11,DK,'start')+T(12,78,'ふれない',11,DK,'start')+T(200,56,'ギュッ！',13,TOP,'start',900)),
+  gripRecord: record([['右','kg'],['左','kg']],['右・左を 交互に2回ずつ','いい方を記入']),
+
+  // 長座体前屈
+  sitBase(shoulder,headp,hdx,boxX,extra=''){
+    return `<line x1="34" y1="8" x2="34" y2="134" stroke="${GRAY}" stroke-width="6" stroke-linecap="round"/>`+T(18,60,'壁',11,DK)+
+      `<line x1="8" y1="134" x2="252" y2="134" stroke="#D9D1C9" stroke-width="3" stroke-linecap="round"/>`+
+      `<rect x="60" y="128" width="185" height="6" rx="2" fill="#E4DFDA" stroke="${DK}" stroke-width=".8"/>`+
+      [0,1,2,3,4,5,6,7,8,9].map(i=>`<line x1="${70+i*18}" y1="128" x2="${70+i*18}" y2="${i%2?131:133}" stroke="${DK}" stroke-width=".8"/>`).join('')+
+      L([[50,120],[170,120]],11,LEG)+                               // 脚
+      `<rect x="${boxX}" y="94" width="30" height="34" rx="3" fill="#fff" stroke="${TOP}" stroke-width="2"/>`+T(boxX+15,115,'箱',11,TOP)+
+      L([[50,120],shoulder],22,TOP)+                                // 体幹
+      L([shoulder,[boxX+6,96]],8,TOP)+hand(boxX+6,96)+head(...headp)+extra;
+  },
+  get seat1(){ return svg(this.sitBase([50,58],[50,38],0,80)+
+      T(130,40,'背中とお尻を',11,DK,'start')+T(130,54,'壁につける',11,DK,'start')+T(176,100,'ひざは',11,DK,'start')+T(176,113,'のばす',11,DK,'start')); },
+  get seat2(){ return svg(this.sitBase([86,70],[96,52],0,112)+arrow(150,86,186,86)+T(182,72,'ゆっくり',11,TOP,'start')); },
+  get seat3(){ return svg(this.sitBase([104,90],[121,82],0,162,
+      `<line x1="162" y1="30" x2="162" y2="92" stroke="#C46B84" stroke-width="2" stroke-dasharray="4 3"/>`)+
+      T(150,24,'ここで止めて',11,TOP,'end')+T(150,38,'目盛りを読む',11,TOP,'end')); },
+  seatRecord: record([['長座体前屈','cm']],['2回行って、いい方を記入','（小数点以下は切り捨て）']),
+
+  // 片足立ち
+  chairSide: `<rect x="196" y="98" width="42" height="5" rx="2" fill="#E4DFDA" stroke="${DK}"/><line x1="200" y1="103" x2="200" y2="136" stroke="${DK}" stroke-width="3"/><line x1="234" y1="103" x2="234" y2="136" stroke="${DK}" stroke-width="3"/><line x1="236" y1="98" x2="236" y2="62" stroke="${DK}" stroke-width="4" stroke-linecap="round"/>`,
+  get one1(){ return svg(floor()+this.chairSide+front({lArm:[[-17,42],[-36,58],[-14,80]],rArm:[[17,42],[36,58],[14,80]]})+
+      T(12,60,'手は腰',11,DK,'start')+T(12,74,'に当てる',11,DK,'start')+T(168,36,'近くに壁か',10.5,DK,'start')+T(168,49,'イスを用意',10.5,DK,'start')); },
+  get one2(){ return svg(floor()+front({lArm:[[-17,42],[-36,58],[-14,80]],rArm:[[17,42],[36,58],[14,80]],rLeg:[[8,82],[22,104],[12,124]]})+
+      arrow(40,128,40,108)+T(12,64,'目は開けて',11,DK,'start')+T(12,78,'前を見る',11,DK,'start')+T(176,106,'足を少し',11,TOP,'start')+T(176,120,'床から離す',11,TOP,'start')); },
+  get one3(){ return svg(floor()+front({lArm:[[-17,42],[-36,58],[-14,80]],rArm:[[17,42],[36,58],[14,80]],rLeg:[[8,82],[22,104],[12,124]]})+
+      `<circle cx="214" cy="52" r="22" fill="#fff" stroke="${DK}" stroke-width="3"/><rect x="209" y="22" width="10" height="6" rx="2" fill="${DK}"/>`+
+      `<line x1="214" y1="52" x2="214" y2="38" stroke="${TOP}" stroke-width="3" stroke-linecap="round"/><line x1="214" y1="52" x2="224" y2="58" stroke="${DK}" stroke-width="2.5" stroke-linecap="round"/>`+
+      T(214,92,'足が離れた',11,TOP)+T(214,106,'ら スタート',11,TOP)); },
+  oneRecord: record([['片足立ち','秒']],['最長120秒まで','毎回同じ足で測る']),
+
+  // 立ち座り30秒
+  chair: `<line x1="22" y1="8" x2="22" y2="134" stroke="${GRAY}" stroke-width="6" stroke-linecap="round"/>`+T(10,60,'壁',11,DK)+
+         `<line x1="8" y1="134" x2="252" y2="134" stroke="#D9D1C9" stroke-width="3" stroke-linecap="round"/>`+
+         `<rect x="34" y="98" width="62" height="6" rx="2" fill="#E4DFDA" stroke="${DK}"/><line x1="38" y1="104" x2="38" y2="134" stroke="${DK}" stroke-width="3"/><line x1="92" y1="104" x2="92" y2="134" stroke="${DK}" stroke-width="3"/><line x1="36" y1="98" x2="36" y2="58" stroke="${DK}" stroke-width="4" stroke-linecap="round"/>`+
+         `<line x1="44" y1="98" x2="44" y2="104" stroke="none"/>`,
+  get cs1(){ return svg(this.chair+L([[66,88],[112,92],[114,134]],11,LEG)+L([[66,88],[68,50]],22,TOP)+L([[58,56],[80,56]],8,TOP)+head(68,30)+
+      T(136,40,'高さ約40cmの',11,DK,'start')+T(136,53,'イスの中ほどに座る',11,DK,'start')+T(136,84,'腕は胸の前で',11,DK,'start')+T(136,97,'組む',11,DK,'start')); },
+  get cs2(){ return svg(this.chair+L([[116,76],[116,104],[116,134]],11,LEG)+L([[116,76],[116,32]],22,TOP)+L([[106,40],[128,40]],8,TOP)+head(116,14)+
+      arrow(166,100,166,44)+T(176,62,'ひざ・腰を',11,TOP,'start')+T(176,76,'のばして',11,TOP,'start')+T(176,90,'しっかり立つ',11,TOP,'start')); },
+  get cs3(){ return svg(this.chair+L([[76,86],[114,92],[114,134]],11,LEG)+L([[76,86],[96,46]],22,TOP)+L([[88,52],[110,52]],8,TOP)+head(104,30)+
+      arrow(166,44,166,100)+T(176,62,'お尻が座面に',11,TOP,'start')+T(176,76,'つくまで',11,TOP,'start')+T(176,90,'しっかり座る',11,TOP,'start')); },
+  csRecord: record([['立ち座り','回']],['30秒間にできた','回数を記入']),
+};
+
+// ───────── 各ページ内容 ─────────
+const pages = [
+ { title:'握力', en:'GRIP', what:'全身の筋力のめやす。体じゅうの筋肉の元気さが、手の力にあらわれます。',
+   tool:'握力計（汎用品）',
+   steps:[
+     ['握力計の幅を合わせる', art.gripDevice, '<b>人差し指の第2関節が、約90°</b>に曲がる幅に調整します。針（表示）は0に戻しておきます。'],
+     ['まっすぐ立つ', art.gripStand, '足を肩幅くらいに開き、腕を自然に下げて立ちます。<b>メモリが外側を向く</b>ように持ちます。'],
+     ['力いっぱい握る', art.gripSqueeze, '<b>握力計を体や服にふれさせず</b>、振り回さずに、ギュッと握ります。息は止めずに。'],
+     ['記録する', art.gripRecord, '右・左を<b>交互に2回ずつ</b>。それぞれ数字のいい方を、記録カードの右・左の欄に書き込みます。'],
+   ],
+   ng:['握力計を体や服にふれさせない・振り回さない','反動をつけない（腕を引いたり、体をねじったりしない）','息を止めない。力が入りすぎると感じたらやめる','手首や指に痛みがあるときは無理をしない'],
+   rec:['右・左 それぞれ2回','いい方の数字（kg）を記入','前回と同じ握力計の幅で'] },
+ { title:'長座体前屈', en:'SIT & REACH', what:'腰からもも裏の柔らかさ。姿勢のクセや、動きにくさが見えます。',
+   tool:'長座体前屈測定器（TOEI LIGHT）',
+   steps:[
+     ['準備の姿勢', art.seat1, '床に長座（脚をのばして座る）になり、<b>背中とお尻を壁につけます</b>。足はそろえ、ひざはのばします。'],
+     ['手を置く', art.seat2, '両手を肩幅にして、<b>手のひらを下</b>にして箱に置きます。背すじをのばしたら準備完了です。'],
+     ['ゆっくり前屈', art.seat3, '息をはきながら、<b>箱をまっすぐ前へ押し出す</b>ように、ゆっくり前屈します。限界のところで止めます。'],
+     ['記録する', art.seatRecord, '止めたところの目盛りを読みます。<b>2回</b>測って、数字のいい方を記録カードに書き込みます。'],
+   ],
+   ng:['ひざを曲げない（曲がったら測り直し）','反動をつけない。ゆっくり押す','途中で手を箱から離さない','腰やもも裏に痛みがあるときは無理をしない'],
+   rec:['2回測っていい方（cm）','小数点以下は切り捨て','前回と同じ測定器・同じ時間帯が◎'] },
+ { title:'片足立ち', en:'ONE-LEG STAND', what:'バランス力と、脚を支える筋力。ふらつきの小さなサインが出ます。',
+   tool:'ストップウォッチ（スマホのタイマー可）・近くの壁かイス',
+   steps:[
+     ['安全な場所で立つ', art.one1, '滑りにくい床で、<b>すぐつかまれる壁やイス</b>の近くに立ちます。手は腰に当てます。'],
+     ['片足を上げる', art.one2, '目を開けたまま前を見て、片足を<b>床から少し離して</b>上げます。上げた足は、支えの足にふれないように。'],
+     ['計測スタート', art.one3, '<b>足が床から離れたときからスタート</b>。スタッフが秒数をはかります。'],
+     ['記録する', art.oneRecord, '終わった秒数を記録カードに書き込みます。<b>120秒に達したら終了</b>です。'],
+   ],
+   ng:['次のときは終了：支えの足がずれた／上げた足が床や支えの足にふれた／手が腰から離れた','必ず壁やイスの近くで。スタッフが横につきます','ふらつきや痛みがあるときは無理をしない'],
+   rec:['終わった秒数を記入','最長120秒','毎回同じ足で測る（記録に足を書いておく）'] },
+ { title:'立ち座り 30秒', en:'30-SEC CHAIR STAND', what:'太ももとお尻の筋力。歩く・立ち上がるの土台になる力です。',
+   tool:'高さ約40cmのイス（動かないよう壁に当てる）・ストップウォッチ',
+   steps:[
+     ['スタートの姿勢', art.cs1, '壁に当てたイスに座り、<b>足は肩幅</b>・かかとは床に。腕は胸の前で組み、背すじをのばします。'],
+     ['立つ', art.cs2, '合図で立ち上がります。<b>ひざと腰をのばして、しっかり立つ</b>のが1回です。'],
+     ['座る', art.cs3, '<b>お尻が座面にふれるまで</b>しっかり座ります。立つ→座るを30秒間くり返します。'],
+     ['記録する', art.csRecord, '30秒でできた回数を数え、記録カードに書き込みます。'],
+   ],
+   ng:['腕は胸の前で組んだまま（ひざに手をつかない）','「立つ」はひざ・腰を完全にのばす。「座る」はお尻がつく','30秒の時点で半分以上立ち上がっていたら1回に数える','イスがずれないよう壁に当てる。ふらつく人はスタッフが横につく'],
+   rec:['30秒間の回数を記入','1回目のスタートは座った状態から','前回と同じイスで'] },
+];
+
+document.getElementById('root').innerHTML = pages.map(p=>`
+<section class="page">
+  <div class="brand"><span>MOMO GYM</span><span>測定のしかた</span></div>
+  <h1>${p.title}<small>${p.en}</small></h1>
+  <div class="what">${p.what}</div>
+  <div class="tool"><b>使うもの</b>${p.tool}</div>
+  <div class="steps">${p.steps.map((s,i)=>`
+    <div class="step"><h3><span class="num">${i+1}</span>${s[0]}</h3>${s[1]}<p>${s[2]}</p></div>`).join('')}
+  </div>
+  <div class="notes">
+    <div class="box ng"><h4>ここに注意</h4><ul>${p.ng.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    <div class="box rec"><h4>記録のしかた</h4><ul>${p.rec.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+  </div>
+  <footer>MOMO GYM</footer>
+</section>`).join('');
+</script>
+</body>
+</html>
