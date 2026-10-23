@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>体力測定会 進行表とスクリプト</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#1E1717; --sub:#4A3F3F; --accent:#A94566; --pale:#F3F0EE; --line:#555; }
+  @page { size: A4; margin: 12mm 13mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family:'Noto Sans JP',sans-serif; font-weight:700; color:var(--ink); background:#ddd; font-size:13px; line-height:1.7; }
+  .doc { width:210mm; margin:0 auto; padding:12mm 13mm; background:#fff; }
+  @media print { body{background:none;} .doc{width:auto; margin:0; padding:0;} }
+
+  .brand { font-size:10px; letter-spacing:.35em; color:var(--sub); }
+  h1 { font-size:26px; line-height:1.3; margin-top:2px; }
+  .meta { color:var(--sub); font-size:13px; margin-top:2px; }
+  h2 { font-size:17px; margin:18px 0 6px; padding:3px 0 3px 10px; border-left:6px solid var(--accent); break-after:avoid; }
+  h3 { font-size:15px; margin:12px 0 3px; color:var(--accent); break-after:avoid; }
+  .pagebreak { break-before:page; }
+
+  table { border-collapse:collapse; width:100%; }
+  th, td { border:1.5px solid var(--line); padding:5px 8px; vertical-align:top; text-align:left; font-size:13px; }
+  th { background:#DCDCDC; }
+  td.t { white-space:nowrap; width:21mm; text-align:center; }
+  td.m { width:15mm; text-align:center; white-space:nowrap; }
+  tr { break-inside:avoid; }
+  tr.tea td { background:var(--pale); }
+
+  ul { list-style:none; }
+  li { padding-left:16px; position:relative; margin-bottom:2px; }
+  li::before { content:''; position:absolute; left:2px; top:.7em; width:6px; height:6px; border-radius:50%; background:var(--ink); }
+  li.say::before { background:var(--accent); }
+  li.say { color:var(--ink); }
+  li.say b { color:var(--accent); }
+  .box { border:1.5px solid var(--line); border-radius:8px; padding:7px 12px; margin-top:6px; break-inside:avoid; }
+  .box.pale { background:var(--pale); }
+  .tag { display:inline-block; font-size:11.5px; border:1.5px solid var(--ink); border-radius:12px; padding:0 8px; margin-right:6px; }
+  .tag.say { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .cols { display:grid; grid-template-columns:1fr 1fr; gap:4px 18px; }
+  .chk li::before { border-radius:2px; background:none; border:1.5px solid var(--ink); width:10px; height:10px; top:.45em; }
+  .note { font-size:12px; color:var(--sub); margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="doc">
+
+<div class="brand">MOMO GYM</div>
+<h1>体力測定会　当日の進行表とスクリプト</h1>
+<div class="meta">2026年10月25日（日）10:30〜12:00　／　参加：5人＋α　／　スタッフ：1人</div>
+
+<h2>持ち物チェック</h2>
+<div class="cols">
+<ul class="chk">
+  <li>握力計（消毒用のウェットティッシュ）</li>
+  <li>長座体前屈測定器（TOEI LIGHT）</li>
+  <li>高さ40cmのイス（参加人数分）</li>
+  <li>ストップウォッチ（またはスマホ）</li>
+  <li>記録カード（人数分＋予備）・ペン</li>
+</ul>
+<ul class="chk">
+  <li>測定のしかた掲示（4枚）</li>
+  <li>チラシ（9週間の流れ）・年内イベントのご案内</li>
+  <li>LINE・オープンチャットの案内</li>
+  <li>お茶とお菓子・カップ</li>
+  <li>メジャー・床テープ（立ち位置の目印）</li>
+</ul>
+</div>
+
+<h2>進行表（90分）</h2>
+<table>
+  <tr><th>時間</th><th>内容</th><th>目安</th><th>ポイント</th></tr>
+  <tr><td class="t">10:30</td><td>受付・体調確認<br>記録カードを渡す</td><td class="m">5分</td><td>名前と実施日（10/25）を書いてもらう。痛み・めまい・医師の運動制限を確認</td></tr>
+  <tr><td class="t">10:35</td><td>あいさつ・今日の目的の説明</td><td class="m">10分</td><td>記録カード裏面を読み上げる。「人と比べない」を伝える</td></tr>
+  <tr><td class="t">10:45</td><td>準備運動</td><td class="m">5分</td><td>手首・肩・足首・股関節を軽く動かす</td></tr>
+  <tr><td class="t">10:50</td><td><b>① 握力 → ② 長座体前屈</b><br>（1人ずつ、私が測る）</td><td class="m">20分</td><td>1人3〜4分。待っている間は記録カードの裏面を読んでもらう</td></tr>
+  <tr><td class="t">11:10</td><td><b>③ 立ち座り30秒</b><br>（全員同時）</td><td class="m">10分</td><td>イスを壁に当てて人数分並べる。時間は私が計り、回数は自分で数える</td></tr>
+  <tr><td class="t">11:20</td><td><b>④ 片足立ち 60秒</b><br>（全員同時）</td><td class="m">10分</td><td>1m以上あける。壁かイスの近く。5秒ごとに秒数を読み上げる</td></tr>
+  <tr><td class="t">11:30</td><td>記録カードの確認<br>これからの流れの説明</td><td class="m">10分</td><td>測定ウィーク・強化ウィーク・再測定ウィーク、LINE・おうち動画</td></tr>
+  <tr class="tea"><td class="t">11:40</td><td>お茶・スペースのお披露目会<br>（モモフローの紹介）</td><td class="m">20分</td><td>お茶を入れて、ゆったり。年内イベントの案内を渡す</td></tr>
+</table>
+<div class="note">※ 遅れて来た人は、時間内なら同じルールで1人ずつ測ります（片足立ちは60秒、立ち座りは30秒）。入退場自由なので、時間は目安です。</div>
+
+<h2 class="pagebreak">オープニング（10:30〜10:45）</h2>
+<h3>受付・体調確認</h3>
+<ul>
+  <li class="say"><b>「</b>今日は来てくださって、ありがとうございます。まず、この記録カードにお名前と、今日の日付を書いてください<b>」</b></li>
+  <li class="say"><b>「</b>今日の体調はどうですか？ 痛いところ、めまい、お医者さんに運動を止められていることはありませんか<b>」</b></li>
+  <li>あれば、その種目は見学・軽めにする</li>
+</ul>
+
+<h3>あいさつ・今日の目的</h3>
+<ul>
+  <li class="say"><b>「</b>今日は、体力測定会です。測って、動かして、もう一度測る。9週間で、体は変わります<b>」</b></li>
+  <li class="say"><b>「</b>測るのは、握力、長座体前屈、片足立ち、立ち座り30秒の4つです。どれも1分もかかりません<b>」</b></li>
+  <li class="say"><b>「</b>数字は、人と比べるためのものではありません。半年前、1年前の自分と比べるための、いちばん確かな目じるしです<b>」</b></li>
+  <li class="say"><b>「</b>痛いとき、つらいときは、いつでもやめてください。無理はしません<b>」</b></li>
+</ul>
+
+<h3>4つの測定の意味（記録カード裏面を読み上げる）</h3>
+<ul>
+  <li><b>握力：</b>全身の筋力のめやす。体じゅうの筋肉の元気さが、手の力にあらわれます。続けると、買い物袋やビンのフタが楽になり、体の支えが効いて転びにくくなります</li>
+  <li><b>長座体前屈：</b>腰からもも裏の柔らかさ。姿勢のクセや、動きにくさが見えます。続けると、腰が軽くなり、靴下がはきやすく、ケガをしにくくなります</li>
+  <li><b>片足立ち：</b>バランス力と、脚を支える筋力。ふらつきの小さなサインが出ます。続けると、つまずきにくく、階段がこわくなくなり、骨にもよい刺激が入ります</li>
+  <li><b>立ち座り30秒：</b>太ももとお尻の筋力。歩く・立ち上がるの土台になる力です。続けると、立ち上がりが楽になり、歩くのが速くなり、長く歩いても疲れにくくなります</li>
+</ul>
+
+<h3>準備運動（5分）</h3>
+<ul>
+  <li class="say"><b>「</b>では、体を温めましょう。手首をぐるぐる、肩を回して、足首、ひざ、股関節をゆっくり動かします<b>」</b></li>
+</ul>
+
+<h2 class="pagebreak">測定のスクリプト</h2>
+<h3>① 握力（10:50〜）　1人ずつ</h3>
+<ul>
+  <li><span class="tag">準備</span>握力計を0に戻す。人差し指の第2関節が約90°になる幅に合わせる</li>
+  <li class="say"><b>「</b>足を肩幅に開いて立ち、腕を自然に下げます。メモリは外向きです<b>」</b></li>
+  <li class="say"><b>「</b>握力計を体や服につけないで、振り回さず、ギュッと握ってください。息は止めないで<b>」</b></li>
+  <li><span class="tag">手順</span>右・左を交互に2回ずつ（右→左→右→左）。いい方を記録カードに書いてもらう</li>
+  <li class="say"><b>「</b>右はいい方の数字、左もいい方の数字を、カードの握力の欄に書いてください<b>」</b></li>
+  <li><span class="tag">注意</span>手首や指が痛い人は無理をしない</li>
+</ul>
+
+<h3>② 長座体前屈（続けて）　TOEI LIGHT</h3>
+<ul>
+  <li><span class="tag">準備</span>壁の前の床に測定器を置き、目盛りを確認する</li>
+  <li class="say"><b>「</b>床に脚をのばして座ります。背中とお尻を壁につけて、ひざはのばしたままです<b>」</b></li>
+  <li class="say"><b>「</b>両手を肩幅にして、手のひらを下にして、板の上の端に置きます。背すじをのばします<b>」</b></li>
+  <li class="say"><b>「</b>息をはきながら、板をまっすぐ前へ押し出すように、ゆっくり前屈します。限界で止めてください<b>」</b></li>
+  <li><span class="tag">手順</span>止まった位置の目盛りを私が読む。2回測って、いい方を記入（小数点以下は切り捨て）</li>
+  <li><span class="tag">注意</span>ひざが曲がったら測り直し。反動をつけない。腰やもも裏が痛い人は無理をしない</li>
+</ul>
+
+<h3>③ 立ち座り30秒（11:10〜）　全員同時</h3>
+<ul>
+  <li><span class="tag">準備</span>40cmのイスを壁に当てて、人数分並べる。間隔をあける</li>
+  <li class="say"><b>「</b>イスの中ほどに座って、足は肩幅、かかとは床につけます。腕は胸の前で組みます<b>」</b></li>
+  <li class="say"><b>「</b>『はじめ』の合図で、立つ、座るをくり返します。30秒間で、できるだけ多くの回数です<b>」</b></li>
+  <li class="say"><b>「</b>立つときは、ひざと腰をしっかりのばします。座るときは、お尻が座面につくまでです<b>」</b></li>
+  <li class="say"><b>「</b>回数は、ご自分で数えてください。『はじめ』『やめ』は私が言います<b>」</b></li>
+  <li><span class="tag">注意</span>30秒の時点で半分以上立ち上がっていたら1回に数える。ふらつくときは座って休む</li>
+  <li class="say"><b>「</b>回数を、カードの立ち座りの欄に書いてください<b>」</b></li>
+</ul>
+
+<h3>④ 片足立ち 60秒（11:20〜）　全員同時</h3>
+<ul>
+  <li><span class="tag">準備</span>隣の人と1m以上あける。壁かイスの近くに立つ</li>
+  <li class="say"><b>「</b>手は腰に当てます。目は開けて、前を見ます<b>」</b></li>
+  <li class="say"><b>「</b>『はじめ』で片足を床から少し上げます。毎回、同じ足にします<b>」</b></li>
+  <li class="say"><b>「</b>足が床についたら、手が腰から離れたら、そこで終わりです。60秒立てたら満点です。ご自分の秒数を覚えてください<b>」</b></li>
+  <li><span class="tag">進行</span>5秒ごとに「5、10、15……」と秒数を読み上げる。60秒で「やめ」</li>
+  <li class="say"><b>「</b>立てた秒数を、カードの片足立ちの欄に書いてください<b>」</b></li>
+  <li><span class="tag">注意</span>途中でやめてもいいと先に伝える。60秒立った人には拍手</li>
+</ul>
+
+<h2>まとめ・これからの流れ（11:30〜）</h2>
+<ul>
+  <li class="say"><b>「</b>お疲れさまでした。今日の数字が、スタートの目じるしです。いい・悪いではありません<b>」</b></li>
+  <li><b>測定ウィーク（10/26〜11/15）：</b>握力・長座体前屈は、ご自分のタイミングで測ります。立ち座り・片足立ちは、レッスンのはじめにみんなで</li>
+  <li><b>強化ウィーク（11/16〜12/6）：</b>レッスンに4つの力のメニューを取り入れます。おうち動画をLINEでお届けします。期間限定でオープンチャットも開きます</li>
+  <li><b>再測定ウィーク（12/7〜12/27）：</b>1回目とまったく同じやり方で、もう一度測って、「前」と「後」を見比べます</li>
+  <li class="say"><b>「</b>おうちでは、裏面のエクササイズを、できるときにやってみてください<b>」</b></li>
+</ul>
+
+<h2>お茶・スペースのお披露目会（11:40〜12:00）</h2>
+<ul>
+  <li class="say"><b>「</b>では、お茶を入れますので、ゆっくり座ってお待ちください<b>」</b></li>
+  <li>お茶を出して、スペースの使い方や、置いてあるものを紹介する</li>
+  <li><b>年内イベントの案内を渡す：</b>
+    <ul style="margin-top:2px">
+      <li>11/14（土）午後 モモテーブル「更年期の悩みと対策」</li>
+      <li>12/5（土）モモテーブル「今と老後のお金とNISA」</li>
+      <li>12/26（土）12:30〜 モモジムランチ忘年会</li>
+      <li>2027年1/10（日）街リトリート</li>
+    </ul>
+  </li>
+  <li class="say"><b>「</b>今日はありがとうございました。次はレッスンで会いましょう<b>」</b></li>
+</ul>
+
+<div class="box pale">
+  <b>当日の確認メモ</b>
+  <ul>
+    <li>今日の数字は、記録カードの第1回「前」に書く？ それとも練習扱い？ → 事前に決めておく</li>
+    <li>片足立ちの秒数は、5秒ごとの読み上げで本人が覚える（人数が増えたら、隣同士で見てもらう）</li>
+    <li>測定器は使う前に床へ置いて、ぐらつきがないか確認する</li>
+  </ul>
+</div>
+
+</div>
+</body>
+</html>
