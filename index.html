@@ -189,60 +189,24 @@
     padding: 3px 12px; border-radius: 20px; cursor: pointer;
   }
   .tab.active { background: white; color: var(--pink); }
-  .tab .badge {
-    display: inline-block; min-width: 16px; margin-left: 4px; padding: 0 4px;
-    border-radius: 8px; background: var(--pink); color: white; font-size: 10px; text-align: center;
-  }
-  .tab:not(.active) .badge { background: rgba(255,255,255,0.9); color: var(--pink); }
   body.view-todo .grid-outer, body.view-todo .header-row2, body.view-todo .header-sub { display: none; }
   body:not(.view-todo) .todo-outer { display: none; }
 
-  /* ── TODO LIST ── */
-  .todo-outer { flex: 1; overflow: auto; -webkit-overflow-scrolling: touch; padding: 12px 12px 40px; }
-  .todo-wrap { max-width: 640px; margin: 0 auto; }
-  .todo-add {
-    display: flex; gap: 6px; flex-wrap: wrap;
-    background: white; border: 1px solid var(--pink-light); border-radius: 12px; padding: 8px;
+  /* ── TODO LINK ── */
+  .todo-outer { flex: 1; overflow: auto; padding: 16px; }
+  .todo-wrap { max-width: 520px; margin: 0 auto; }
+  .todo-card {
+    background: white; border: 1px solid var(--pink-light); border-radius: 14px;
+    padding: 20px 16px; text-align: center;
   }
-  .todo-add input {
-    font-family: inherit; font-size: 13px; color: var(--text);
-    border: 1px solid #F0E0E4; border-radius: 8px; padding: 6px 8px; background: var(--bg);
+  .todo-card-title { font-size: 15px; font-weight: 700; }
+  .todo-card-text { font-size: 12px; color: var(--text-light); line-height: 1.7; margin-top: 8px; }
+  .todo-open {
+    display: inline-block; margin-top: 16px; padding: 10px 22px; border-radius: 24px;
+    background: linear-gradient(135deg, var(--pink), var(--orange)); color: white;
+    font-size: 14px; font-weight: 700; text-decoration: none;
   }
-  .todo-add input:focus { outline: 2px solid var(--pink-light); }
-  #todoText { flex: 1 1 200px; min-width: 0; }
-  #todoDue { flex: 0 1 150px; }
-  .todo-add button {
-    font-family: inherit; font-size: 13px; font-weight: 700; color: white;
-    background: var(--pink); border: none; border-radius: 8px; padding: 6px 14px; cursor: pointer;
-  }
-  .todo-group { margin-top: 14px; font-size: 11px; font-weight: 700; color: var(--text-light); padding: 0 4px 4px; }
-  .todo-item {
-    display: flex; align-items: flex-start; gap: 10px;
-    background: white; border: 1px solid #F0E0E4; border-radius: 12px;
-    padding: 10px 10px; margin-top: 6px;
-  }
-  .todo-check {
-    flex-shrink: 0; width: 22px; height: 22px; margin-top: 1px;
-    border: 2px solid var(--pink); border-radius: 50%; background: white;
-    display: flex; align-items: center; justify-content: center;
-    color: white; font-size: 13px; font-weight: 700; cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .todo-item.done .todo-check { background: var(--pink); }
-  .todo-body { flex: 1; min-width: 0; }
-  .todo-title { font-size: 13px; line-height: 1.5; word-break: break-word; }
-  .todo-item.done .todo-title { text-decoration: line-through; color: var(--text-light); }
-  .todo-due {
-    display: inline-block; margin-top: 3px; font-size: 10px; font-weight: 700;
-    color: var(--orange); background: #FFF1E6; border-radius: 6px; padding: 1px 7px;
-  }
-  .todo-due.over { color: white; background: #E84444; }
-  .todo-item.done .todo-due { color: var(--text-light); background: #F3EEEF; }
-  .todo-del {
-    flex-shrink: 0; background: none; border: none; color: #C9B3B9;
-    font-size: 16px; line-height: 1; cursor: pointer; padding: 2px 4px;
-  }
-  .todo-empty { text-align: center; color: var(--text-light); font-size: 12px; margin-top: 30px; }
+  .todo-card-note { font-size: 10px; color: var(--text-light); margin-top: 14px; line-height: 1.6; }
 </style>
 </head>
 <body>
@@ -251,7 +215,7 @@
   <h1>🏋️ MOMOジム　オープン・クローズ チェックシート</h1>
   <div class="tabs">
     <button class="tab active" id="tabCheck" onclick="setView('check')">✅ チェックシート</button>
-    <button class="tab" id="tabTodo" onclick="setView('todo')">📝 やることリスト<span class="badge" id="todoBadge"></span></button>
+    <button class="tab" id="tabTodo" onclick="setView('todo')">📝 やることリスト</button>
   </div>
   <div class="header-sub">作業項目をタップしてチェック ✓</div>
   <div class="header-row2">
@@ -270,12 +234,12 @@
 
 <div class="todo-outer">
   <div class="todo-wrap">
-    <form class="todo-add" onsubmit="addTodo(event)">
-      <input type="text" id="todoText" placeholder="やることを入力" autocomplete="off">
-      <input type="date" id="todoDue" title="期限（任意）">
-      <button type="submit">追加</button>
-    </form>
-    <div id="todoList"></div>
+    <div class="todo-card">
+      <div class="todo-card-title">📝 MOMOジム やることリスト</div>
+      <div class="todo-card-text">やることリストはGoogleスプレッドシートで管理しています。<br>スマホでもパソコンでも同じリストを見られます。</div>
+      <a class="todo-open" href="https://docs.google.com/spreadsheets/d/1gDWGN2cXFQMGou5DpthJvcs6AsguI_8S3vbZgheCRIs/edit" target="_blank" rel="noopener">スプレッドシートを開く</a>
+      <div class="todo-card-note">完了したら「完了」欄にチェック ✓ ／ 新しいやることは下の行に書き足してください</div>
+    </div>
   </div>
 </div>
 
@@ -426,88 +390,8 @@ document.getElementById('monthPicker').addEventListener('change', e=>setMonth(e.
 load();
 initMonth();
 
-// ── やることリスト ──
-const TSTORE = 'momo_todo_v1';
+// ── 表示切り替え ──
 const VSTORE = 'momo_view_v1';
-// 初期登録のやること（id で管理し、未登録のものだけ追加される）
-const DEFAULT_TODOS = [
-  { id:'d_2027_calendar', text:'来年（2027年）の年間予定と1〜3月のカレンダーを作る', due:'2026-12-10', dueLabel:'2026年12月上旬' },
-];
-
-let todos = [];
-function loadTodos() {
-  let st;
-  try { st = JSON.parse(localStorage.getItem(TSTORE)||'null'); } catch { st = null; }
-  if (!st || !Array.isArray(st.items)) st = { items:[], seeded:[] };
-  DEFAULT_TODOS.forEach(d => {
-    if (!st.seeded.includes(d.id)) { st.items.push({ ...d, done:false }); st.seeded.push(d.id); }
-  });
-  todos = st.items; todoSeeded = st.seeded;
-  saveTodos();
-}
-let todoSeeded = [];
-function saveTodos() { localStorage.setItem(TSTORE, JSON.stringify({ items:todos, seeded:todoSeeded })); }
-
-function todayStr() {
-  const n = new Date();
-  return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
-}
-function fmtDue(t) {
-  if (t.dueLabel) return t.dueLabel;
-  const [y,m,d] = t.due.split('-').map(Number);
-  return `${y}年${m}月${d}日（${DAYS[new Date(y,m-1,d).getDay()]}）`;
-}
-
-function renderTodos() {
-  const list = document.getElementById('todoList');
-  list.innerHTML = '';
-  const byDue = (a,b) => (a.due||'9999') < (b.due||'9999') ? -1 : (a.due||'9999') > (b.due||'9999') ? 1 : 0;
-  const open = todos.filter(t=>!t.done).sort(byDue);
-  const done = todos.filter(t=>t.done).sort(byDue);
-  const badge = document.getElementById('todoBadge');
-  badge.textContent = open.length || '';
-  badge.style.display = open.length ? '' : 'none';
-
-  if (!todos.length) { list.appendChild(el('div','todo-empty','やることはまだありません')); return; }
-  const today = todayStr();
-  const group = (title, arr) => {
-    if (!arr.length) return;
-    list.appendChild(el('div','todo-group', `${title}（${arr.length}）`));
-    arr.forEach(t => {
-      const row = el('div', 'todo-item' + (t.done?' done':''));
-      const ck = el('div','todo-check', t.done ? '✓' : '');
-      ck.addEventListener('click', () => {
-        t.done = !t.done; saveTodos(); renderTodos();
-        if (t.done) showToast('✓ 完了しました');
-      });
-      const body = el('div','todo-body');
-      body.appendChild(el('div','todo-title', t.text));
-      if (t.due) body.appendChild(el('span', 'todo-due' + (!t.done && t.due < today ? ' over' : ''), '📅 ' + fmtDue(t)));
-      const del = el('button','todo-del','×');
-      del.title = '削除';
-      del.addEventListener('click', () => {
-        if (confirm(`「${t.text}」を削除しますか？`)) {
-          todos = todos.filter(x=>x!==t); saveTodos(); renderTodos(); showToast('🗑 削除しました');
-        }
-      });
-      row.append(ck, body, del);
-      list.appendChild(row);
-    });
-  };
-  group('未完了', open);
-  group('完了', done);
-}
-
-function addTodo(e) {
-  e.preventDefault();
-  const ti = document.getElementById('todoText'), di = document.getElementById('todoDue');
-  const text = ti.value.trim();
-  if (!text) { ti.focus(); return; }
-  todos.push({ id:'u_'+Date.now(), text, due: di.value || '', done:false });
-  saveTodos(); renderTodos();
-  ti.value = ''; di.value = '';
-  showToast('📝 追加しました');
-}
 
 function setView(v) {
   document.body.classList.toggle('view-todo', v==='todo');
@@ -516,8 +400,6 @@ function setView(v) {
   localStorage.setItem(VSTORE, v);
 }
 
-loadTodos();
-renderTodos();
 setView(localStorage.getItem(VSTORE) || 'check');
 </script>
 </body>
